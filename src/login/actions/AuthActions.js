@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    DOWNLOAD_FILE_ERROR,
     EMAIL_CHANGED,
     FORCE_LOGOUT, FORGOT_PASSWORD_EMAIL_CHANGED,
     GET_USERS,
@@ -28,7 +27,6 @@ import {
 } from "../../actions/actionTypes";
 import * as Constants from "../../utils/Constants";
 import {
-    asyncDownloadGetRequest,
     asyncGetRequest,
     asyncPostRequestFormData,
     asyncPostRequestUnauthorized,

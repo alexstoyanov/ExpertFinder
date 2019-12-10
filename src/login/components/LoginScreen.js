@@ -8,7 +8,8 @@ import {
     toggleEmailFieldFocus,
     togglePasswordFieldFocus,
     togglePasswordFieldVisible,
-    navigateHome
+    navigateHome,
+    showErrorMessage
 } from "../../actions/index";
 import {Button, Container, Content, Input, Item} from "native-base";
 import * as Constants from "../../utils/Constants";
@@ -64,7 +65,7 @@ class LoginScreen extends Component {
 
     render() {
         return (
-            <SafeAreaView style={{flex: 1, backgroundColor: '#1186C9'}} forceInset={{top: "always", bottom: 'always'}}>
+            <SafeAreaView style={{flex: 1, backgroundColor: globalColors.primaryColor}} forceInset={{top: "always", bottom: 'always'}}>
                 <ScrollView style={styles.containerStyle}>
                     <View style={styles.loginFormStyle}>
                         <Text style={styles.promptStyle}>{Strings.PROMPT_EMAIL}</Text>
@@ -108,13 +109,6 @@ class LoginScreen extends Component {
                                 {Strings.LOGIN}
                             </Text>
                         </Button>
-                        <View style={{flexDirection: 'row', alignSelf: 'stretch', justifyContent: 'flex-end'}}>
-                            <TouchableOpacity
-                                style={{paddingTop: 16, paddingBottom: 16, paddingLeft: 16}}
-                                onPress={() => navigateForgotPassword()}>
-                                <Text style={{color: 'white', fontSize: 12}}>ЗАБРАВЕНА ПАРОЛА</Text>
-                            </TouchableOpacity>
-                        </View>
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -138,7 +132,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         paddingTop: 90,
-        backgroundColor: '#1186C9',
+        backgroundColor: globalColors.primaryColor,
     },
     logoStyle: {
         width: 202,
@@ -220,7 +214,6 @@ const mapStateToProps = ({auth}) => {
 export default connect(mapStateToProps, {
     loginUser,
     showErrorMessage,
-    socialLogin,
     emailChange,
     passwordChange,
     toggleEmailFieldFocus,

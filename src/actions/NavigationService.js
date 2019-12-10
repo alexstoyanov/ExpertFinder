@@ -1,7 +1,8 @@
 import {
+    NAVIGATE_HOME, NAVIGATE_OFFER_DETAIL,
     OPEN_SPLASH
 } from './actionTypes';
-import {NavigationActions} from 'react-navigation';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 let _navigator;
 
@@ -21,3 +22,21 @@ function navigate(routeName, params) {
 export function navigateUsingAction(action) {
     _navigator.dispatch(action);
 }
+
+export const navigateHome = () => {
+    const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({routeName: NAVIGATE_HOME})],
+    });
+    _navigator.dispatch(resetAction);
+};
+
+export const navigateOfferDetail = (offer) => {
+    navigate(NAVIGATE_OFFER_DETAIL, offer);
+};
+
+export default {
+    navigate,
+    setTopLevelNavigator,
+};
+
