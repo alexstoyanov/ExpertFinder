@@ -1,0 +1,17 @@
+// export const SHKOLO_API_URL = 'http://192.168.88.253/SHKOLO/shkolo-api/public';
+// export const SHKOLO_API_URL   = 'http://shkolo-api';
+// export const SHKOLO_API_URL = 'http://api.shkolo.xyz';
+export const SHKOLO_API_URL = 'https://api.shkolo.bg';
+// export const SHKOLO_API_URL = 'https://api.hakni.shkolo.bg';
+export const APP_ID = 1436156397;
+export const APP_NAME = "Shkolo";
+export const ERROR = "error";
+export const SUCCESS = "success";
+export const USER_SCHOOL_ID = 'UserSchoolId';
+export const CURRENT_USER_ID = 'CurrentUserId';
+export const CURRENT_USER_ROLES = 'CurrentUserRoles';
+export const CURRENT_USER_NAMES = 'CurrentUserNames';
+export const CURRENT_START_YEAR = '18';
+export const CURRENT_YEAR_TERM2_START = '02-06';
+export const CURRENT_YEAR_TERM2_END = '08-31';
+export const SCHOOL_EXCLUDED_SCHEDULE = "195";
