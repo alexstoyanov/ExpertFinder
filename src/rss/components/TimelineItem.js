@@ -2,23 +2,17 @@ import React, {Component} from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {connect} from "react-redux";
 import FaIcon from "react-native-vector-icons/FontAwesome";
-import {globalStyles} from "../utils/Styles";
+import {globalStyles} from "../../utils/Styles";
 
-class OfferItem extends Component {
+class TimelineItem extends Component {
     render() {
-        let offer = this.props.offer;
-
+        let feedItem = this.props.feedItem;
         return (
-            <TouchableOpacity key={String.valueOf(offer.id)} style={styles.itemStyle} onPress={() => this.props.onOfferItemClick(offer)}>
+            <TouchableOpacity key={String.valueOf(feedItem.id)} style={styles.itemStyle} onPress={() => this.props.onTimelineItemClick(feedItem)}>
                 <View style={styles.dataStyle}>
-                    <Text style={styles.offerInfoStyle}>
+                    <Text style={styles.feedItemInfoStyle}>
                         {
-                            offer.title
-                        }
-                    </Text>
-                    <Text style={styles.offerInfoStyle}>
-                        {
-                            offer.description
+                            feedItem.description
                         }
                     </Text>
                 </View>
@@ -35,9 +29,14 @@ const styles = StyleSheet.create({
         justifyContent:'center',
     },
     offerInfoStyle:{
-        color:'#000000DE',
         fontSize: 16,
-    }
+        color: '#000000DE'
+    },
+    studentLabelStyle: {
+        fontSize: 14,
+        lineHeight:25,
+        color: '#0000008A'
+    },
 });
 
-export default OfferItem
+export default TimelineItem

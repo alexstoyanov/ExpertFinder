@@ -2,14 +2,16 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import LoginScreen from "../login/components/LoginScreen";
 import React, {Component} from "react";
 import AppStack from "./AppStack";
+import AuthLoadingScreen from "../login/components/AuthLoadingScreen";
 
 const MainSwitchNavigator = createSwitchNavigator(
     {
-        App: AppStack,
-        Auth: LoginScreen
+        AuthLoading: AuthLoadingScreen,
+        Auth: LoginScreen,
+        App: AppStack
     },
     {
-        initialRouteName: 'Auth',
+        initialRouteName: 'AuthLoading',
         defaultNavigationOptions:{
             headerMode: 'none',
             header: null
@@ -19,4 +21,4 @@ const MainSwitchNavigator = createSwitchNavigator(
 
 const LaunchSwitchNavigator = createAppContainer(MainSwitchNavigator);
 
-export default LaunchSwitchNavigator;
+export default LaunchSwitchNavigator

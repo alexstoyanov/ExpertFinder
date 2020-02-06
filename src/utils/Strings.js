@@ -60,3 +60,13 @@ export const READ = "Прочели";
 export const PROMPT = "ИЗБЕРИ";
 export const MIN_ATENDEES = "Минимално присъстващи";
 export const MAX_ATENDEES = "Максимално присъстващи";
+
+
+export const HOME = "Начало";
+export const OFFERS = "Оферти";
+export const MESSAGES = "Съобщения";
+export const PROMPT_DESCRIPTION = "Въведи описание";
+export const ASSIGN_TO_STUDENT = "Изпрати на студент";
+export const LOG_OUT = "Изход";
+export const LANGUAGE = "Език";
+export const SEND_TO = "Изпратена на";

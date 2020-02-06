@@ -9,13 +9,15 @@ import {
     togglePasswordFieldFocus,
     togglePasswordFieldVisible,
     navigateHome,
-    showErrorMessage
+    showErrorMessage,
+    setToken
 } from "../../actions/index";
 import {Button, Container, Content, Input, Item} from "native-base";
 import * as Constants from "../../utils/Constants";
 import * as Strings from "../../utils/Strings";
 import {globalColors} from "../../utils/Colors";
 import SafeAreaView from 'react-native-safe-area-view';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class LoginScreen extends Component {
     onEmailChange(text) {
@@ -42,13 +44,17 @@ class LoginScreen extends Component {
         this.props.togglePasswordFieldFocus(false);
     }
 
-    onLoginButtonPress(email, password) {
+    async onLoginButtonPress(email, password) {
         if (email && password && email !== "" && password !== "") {
-            // this.props.loginUser({email, password}, false);
-            if(email === "admin" && password === "admin"){
+            if(email === "teacher" && password === "teacher"){
+                await AsyncStorage.setItem('userToken', 'ProfessorToken');
+                this.props.setToken('ProfessorToken');
+                navigateHome();
+            }else if(email ==="student" && password === "student"){
+                await AsyncStorage.setItem('userToken', 'StudentToken');
+                this.props.setToken('StudentToken');
                 navigateHome();
             }
-
         } else {
             this.props.showErrorMessage(Strings.FAIL_EMPTY_USER_PASS);
         }
@@ -105,7 +111,7 @@ class LoginScreen extends Component {
                         </Item>
                         <Button rounded onPress={() => this.onLoginButtonPress(this.props.email, this.props.password)}
                                 style={{marginTop: 32, height: 36}} light block>
-                            <Text style={{fontSize: 15, color: '#1186C9'}}>
+                            <Text style={{fontSize: 15, color: globalColors.primaryColor}}>
                                 {Strings.LOGIN}
                             </Text>
                         </Button>
@@ -113,12 +119,6 @@ class LoginScreen extends Component {
                 </ScrollView>
             </SafeAreaView>
         );
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.token && this.props.users && prevProps.token != this.props.token) {
-            navigateSelectSchool();
-        }
     }
 
 }
@@ -219,4 +219,5 @@ export default connect(mapStateToProps, {
     toggleEmailFieldFocus,
     togglePasswordFieldFocus,
     togglePasswordFieldVisible,
+    setToken
 })(LoginScreen);

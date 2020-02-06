@@ -1,37 +1,16 @@
 import React from 'react';
 import {
-    EMAIL_CHANGED,
-    FORCE_LOGOUT, FORGOT_PASSWORD_EMAIL_CHANGED,
-    GET_USERS,
-    GET_USERS_FAIL,
-    GET_USERS_SUCCESS,
-    GET_VISIBLE_USERS,
-    GET_VISIBLE_USERS_SUCCESS,
+    EMAIL_CHANGED, FORCE_LOGOUT,
     LOGIN_USER,
     LOGIN_USER_FAIL,
-    LOGIN_USER_SUCCESS,
-    LOGOUT_USER,
-    NAVIGATE_LOGIN,
-    PASSWORD_CHANGED, RESET_PASSWORD, RESET_PASSWORD_FAIL, RESET_PASSWORD_SUCCESS,
-    RESET_SWITCHED_USER_ROLES, SAVE_USER_DATA,
-    SEND_FCM_TOKEN_SUCCESS,
-    SET_APP_UPDATE_NEEDED, SET_CURRENT_USER_NAMES,
-    SET_USER_ROLES,
-    SET_USER_SCHOOL_ID,
-    SWITCH_USER,
-    SWITCH_USER_FAIL,
-    SWITCH_USER_SUCCESS,
+    LOGIN_USER_SUCCESS, LOGOUT_USER,
+    PASSWORD_CHANGED, SET_TOKEN,
     TOGGLE_EMAIL_FIELD_FOCUS,
     TOGGLE_PASSWORD_FIELD_FOCUS,
     TOGGLE_PASSWORD_FIELD_VISIBLE,
 } from "../../actions/actionTypes";
 import * as Constants from "../../utils/Constants";
-import {
-    asyncGetRequest,
-    asyncPostRequestFormData,
-    asyncPostRequestUnauthorized,
-    dispatchEvent
-} from "../../utils/WebServiceUtils";
+import {asyncPostRequestUnauthorized} from "../../utils/WebServiceUtils";
 
 export const emailChange = (text) => {
     return {
@@ -84,7 +63,7 @@ async function loginUserAsync(dispatch, email, password, resetLoginAttempts = fa
         error: error
     });
     if (!error) {
-        asyncPostRequestUnauthorized(dispatch, Constants.SHKOLO_API_URL + '/v1/auth/login', formData,
+        asyncPostRequestUnauthorized(dispatch, Constants.API_URL + '/v1/auth/login', formData,
             loginUserSuccess, loginUserFail);
     }
 }
@@ -101,4 +80,23 @@ const loginUserFail = (dispatch, message) => {
         type: LOGIN_USER_FAIL,
         error: message
     });
+};
+
+export const logoutUser = () => {
+    return (dispatch) => {
+        dispatch({type: LOGOUT_USER})
+    };
+};
+
+export const forceLogout = () => {
+    return {
+        type: FORCE_LOGOUT,
+    }
+};
+
+export const setToken = (token) => {
+    return {
+        type: SET_TOKEN,
+        payload: token
+    }
 };

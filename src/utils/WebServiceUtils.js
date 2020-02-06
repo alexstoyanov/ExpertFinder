@@ -1,20 +1,11 @@
-import store from '../store/index';
 import {FORCE_LOGOUT} from "../actions/actionTypes";
 
-export async function getRequest(url) {
-    const {getToken} = store;
-    const token = await getToken();
-    if (token !== null) {
-        return fetch(url,
-            {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': token
-                },
-            })
-    }
+export async function getRequest(url, headers) {
+    return fetch(url,
+        {
+            method: 'GET',
+            headers
+        })
 }
 
 export async function postRequest(url, formData) {
@@ -29,39 +20,25 @@ export async function postRequest(url, formData) {
         })
 }
 
-export async function requestAuthorizedJsonBody(url, jsonBody, method) {
-    const {getToken} = store;
-    const token = await getToken();
-    if (token !== null) {
-        return fetch(url,
-            {
-                method: method,
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': token
-                },
-                body: jsonBody
-            })
-    }
+export async function putRequest(url) {
+    return fetch(url,
+        {
+            method: 'PUT'
+        })
 }
 
-export async function postRequestAuthorizedFormData(url, formData) {
-    const {getToken} = store;
-    const token = await getToken();
-    if (token !== null) {
-        return fetch(url,
-            {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': token
-                },
-                body: formData
-            })
-    }
+export async function requestJsonBody(url, jsonBody, method) {
+    return fetch(url,
+        {
+            method: method,
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: jsonBody
+        })
 }
+
 
 export async function asyncPostRequestUnauthorized(dispatch, url, formData, successCallback, failCallback) {
     postRequest(url, formData)
@@ -71,9 +48,44 @@ export async function asyncPostRequestUnauthorized(dispatch, url, formData, succ
             return Promise.all([statusCode, data]);
         })
         .then(([status, responseJson]) => {
-            let isError = status !== 200;
-            if (isError) {
-                failCallback(dispatch, responseJson.message);
+            successCallback(dispatch, responseJson);
+        })
+        .catch((error) => {
+            failCallback(dispatch, error);
+        });
+}
+
+export async function asyncPutRequestUnauthorized(dispatch, url, successCallback, failCallback) {
+    console.log(url);
+    putRequest(url)
+        .then((response) => {
+            const statusCode = response.status;
+            const data = response.json();
+            return Promise.all([statusCode, data]);
+        })
+        .then(([status, responseJson]) => {
+            console.log(responseJson);
+            successCallback(dispatch, responseJson);
+        })
+        .catch((error) => {
+            failCallback(dispatch, error);
+        });
+}
+
+export async function asyncRequestJSONBody(dispatch, url, jsonBody, successCallback, failCallback, method = 'POST') {
+    console.log(url);
+    console.log(JSON.stringify(jsonBody));
+    requestJsonBody(url, JSON.stringify(jsonBody), method)
+        .then((response) => {
+            const statusCode = response.status;
+            const data = response.json();
+            return Promise.all([statusCode, data]);
+        })
+        .then(([status, responseJson]) => {
+            console.log(status);
+            if (status == 401) {
+                dispatch({type: FORCE_LOGOUT});
+                failCallback(dispatch, 401);
             } else {
                 successCallback(dispatch, responseJson);
             }
@@ -83,75 +95,20 @@ export async function asyncPostRequestUnauthorized(dispatch, url, formData, succ
         });
 }
 
-export async function asyncRequestJSONBody(dispatch, url, jsonBody, successCallback, failCallback, method = 'POST') {
-    requestAuthorizedJsonBody(url, JSON.stringify(jsonBody), method)
+export async function asyncGetRequest(dispatch, url, successCallback, failCallback, headers = {}) {
+    getRequest(url, headers)
         .then((response) => {
             const statusCode = response.status;
             const data = response.json();
             return Promise.all([statusCode, data]);
         })
         .then(([status, responseJson]) => {
+            console.log(responseJson);
             if (status == 401) {
                 dispatch({type: FORCE_LOGOUT});
                 failCallback(dispatch, 401);
             } else {
-                let isError = status !== 200;
-                if (isError) {
-                    failCallback(dispatch, responseJson.message);
-                } else {
-                    successCallback(dispatch, responseJson);
-                }
-            }
-        })
-        .catch((error) => {
-            failCallback(dispatch, error);
-        });
-}
-
-export async function asyncPostRequestFormData(dispatch, url, formData, successCallback, failCallback) {
-    postRequestAuthorizedFormData(url, formData)
-        .then((response) => {
-            const statusCode = response.status;
-            const data = response.json();
-            return Promise.all([statusCode, data]);
-        })
-        .then(([status, responseJson]) => {
-            if (status == 401) {
-                failCallback(dispatch, responseJson.message);
-                dispatch({type: FORCE_LOGOUT});
-                failCallback(dispatch, 401);
-            } else {
-                let isError = status !== 200;
-                if (isError) {
-                    failCallback(dispatch, responseJson.message);
-                } else {
-                    successCallback(dispatch, responseJson);
-                }
-            }
-        })
-        .catch((error) => {
-            failCallback(dispatch, error);
-        });
-}
-
-export async function asyncGetRequest(dispatch, url, successCallback, failCallback) {
-    getRequest(url)
-        .then((response) => {
-            const statusCode = response.status;
-            const data = response.json();
-            return Promise.all([statusCode, data]);
-        })
-        .then(([status, responseJson]) => {
-            if (status == 401) {
-                dispatch({type: FORCE_LOGOUT});
-                failCallback(dispatch, 401);
-            } else {
-                let isError = status !== 200;
-                if (isError) {
-                    failCallback(dispatch, responseJson.message);
-                } else {
-                    successCallback(dispatch, responseJson);
-                }
+                successCallback(dispatch, responseJson);
             }
         })
         .catch((error) => {

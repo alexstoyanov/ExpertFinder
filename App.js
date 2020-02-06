@@ -15,9 +15,9 @@ import {
   View,
   Text,
   StatusBar,
-    AppRegistry
+    AppRegistry,
 } from 'react-native';
-import RootReducer from "./src/reducers";
+import RootReducer from './src/reducers';
 
 import {
   Header,
@@ -26,8 +26,10 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { createAppContainer } from 'react-navigation';
-import AppNavigator from "./src/navigators/AppNavigator";
+import {createAppContainer} from 'react-navigation';
+import AppNavigator, {
+    AppWithNavigationState
+} from "./src/navigators/AppNavigator";
 import {applyMiddleware, createStore} from "redux";
 import {Provider} from "react-redux";
 import {composeWithDevTools} from 'redux-devtools-extension';
@@ -40,7 +42,7 @@ class App extends React.Component {
     render() {
         return (
             <Provider store={this.store}>
-                <AppContainer />
+                <AppWithNavigationState />
             </Provider>
         );
     }

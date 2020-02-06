@@ -70,9 +70,7 @@ export const globalStyles = StyleSheet.create({
         justifyContent: 'center',
     },
     headerStyle: {
-        paddingLeft:16,
-        paddingRight: 16,
-        height: Platform.OS === 'ios' ? 64 : 56,
+        height: 56,
         backgroundColor: globalColors.primaryColor,
         shadowColor: 'transparent',
         borderBottomWidth: 0,

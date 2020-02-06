@@ -1,8 +1,4 @@
-// export const SHKOLO_API_URL = 'http://192.168.88.253/SHKOLO/shkolo-api/public';
-// export const SHKOLO_API_URL   = 'http://shkolo-api';
-// export const SHKOLO_API_URL = 'http://api.shkolo.xyz';
-export const SHKOLO_API_URL = 'https://api.shkolo.bg';
-// export const SHKOLO_API_URL = 'https://api.hakni.shkolo.bg';
+export const API_URL = 'http://localhost:8025';
 export const APP_ID = 1436156397;
 export const APP_NAME = "Shkolo";
 export const ERROR = "error";
