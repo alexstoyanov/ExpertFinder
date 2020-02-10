@@ -9,22 +9,17 @@ class StudentItem extends Component {
         let student = this.props.student;
         console.log(student);
         return (
-            <TouchableOpacity key={String.valueOf(student.studentId)} style={styles.itemStyle} onPress={() => this.props.onStudentItemClick(student)}>
+            <TouchableOpacity key={String.valueOf(student.studentId)} style={styles.itemStyle}
+                              onPress={() => this.props.onStudentItemClick(student)}>
                 <View style={styles.dataStyle}>
-                    <Text style={styles.studentInfoStyle}>
-                        {
-                            student.firstName + " " + student.lastName
-                        }
+                    <Text style={globalStyles.titleTextStyle}>
+                        <FaIcon name="child" color="#000" size={14}/> {student.firstName + " " + student.lastName}
                     </Text>
-                    <Text style={styles.studentInfoStyle}>
-                        {
-                            student.specialty
-                        }
+                    <Text style={globalStyles.textStyle}>
+                        <FaIcon name="book" color="#0000008A" size={14}/> {student.specialty}
                     </Text>
-                    <Text style={styles.studentInfoStyle}>
-                        {
-                            student.facultyNumber
-                        }
+                    <Text style={globalStyles.textStyle}>
+                        <FaIcon name="id-card" color="#0000008A" size={14}/> {student.facultyNumber}
                     </Text>
                 </View>
                 <View style={globalStyles.separatorStyle}/>
@@ -37,10 +32,10 @@ class StudentItem extends Component {
 const styles = StyleSheet.create({
     dataStyle: {
         padding: 16,
-        justifyContent:'center',
+        justifyContent: 'center',
     },
-    studentInfoStyle:{
-        color:'#000000DE',
+    studentInfoStyle: {
+        color: '#000000DE',
         fontSize: 16,
     }
 });

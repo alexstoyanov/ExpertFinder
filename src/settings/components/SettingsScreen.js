@@ -10,6 +10,7 @@ import {
     logoutUser
 } from "../../actions/index";
 import AsyncStorage from '@react-native-community/async-storage';
+import {globalStyles} from "../../utils/Styles";
 
 class SettingsScreen extends React.Component {
 
@@ -28,8 +29,10 @@ class SettingsScreen extends React.Component {
             <View style={styles.listContainerStyle}>
                 <TouchableOpacity>
                     <View style={styles.listItemStyle}>
-                        <MaterialIcons name="translate" color='#000000' size={30}/>
-                        <Text style={styles.textStyle}>{Strings.LANGUAGE}</Text>
+
+                        <Text style={globalStyles.titleTextStyle}>
+                            <MaterialIcons name="translate" color='#000000' size={16}/> {Strings.LANGUAGE}
+                        </Text>
                     </View>
                 </TouchableOpacity>
                 <View style={styles.bigSeparatorStyle}/>
@@ -37,8 +40,9 @@ class SettingsScreen extends React.Component {
                     this.logoutUserAndClearData()
                 }}>
                     <View style={styles.listItemStyle}>
-                        <SimIcon name="settings" color='#000000' size={30}/>
-                        <Text style={styles.textStyle}>{Strings.LOG_OUT}</Text>
+                        <Text style={globalStyles.titleTextStyle}>
+                            <SimIcon name="settings" color='#000000' size={16}/> {Strings.LOG_OUT}
+                        </Text>
                     </View>
                 </TouchableOpacity>
 
@@ -50,6 +54,17 @@ class SettingsScreen extends React.Component {
 }
 
 
+
+SettingsScreen.navigationOptions = ({navigation}) => ({
+    headerStyle: globalStyles.headerStyle,
+    headerTintColor: "#FFF",
+    headerBackTitle: null,
+    headerTitle:
+        <Text style={globalStyles.headerTitleStyle}>
+            {Strings.MORE}
+        </Text>,
+});
+
 const styles = StyleSheet.create({
     dateContainerStyle: {
         borderRadius: 12,
@@ -60,12 +75,9 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     listItemStyle: {
-        flex: 1,
-        height: 56,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: 16,
-        paddingRight: 16,
+        padding: 16,
     },
     separatorStyle: {
         backgroundColor: '#00000029',
@@ -75,12 +87,6 @@ const styles = StyleSheet.create({
     bigSeparatorStyle: {
         height: 8,
         backgroundColor: '#E5E5E5'
-    },
-    textStyle: {
-        color:"#000000",
-        fontSize: 16,
-        marginLeft: 16,
-        marginRight: 8,
     },
     iconStyle: {
         height: 25,

@@ -4,12 +4,12 @@ export function getChannels() {
         {
             id:"1",
             title:"Дипломна работа",
-            description:"Имам проблем с бла бла"
+            description:"Стъпки за направа на дипломна работа"
         },
         {
             id:"2",
             title:"Състезания",
-            description:"Имам проблем с бла бла"
+            description:"Участия в състезания"
         },
 
     ];

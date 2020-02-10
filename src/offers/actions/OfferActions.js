@@ -1,30 +1,43 @@
 import React from 'react';
 import {
+    ASSIGN_STUDENT_OFFER,
+    ASSIGN_STUDENT_OFFER_FAIL,
+    ASSIGN_STUDENT_OFFER_SUCCESS,
+    DESCRIPTION_CHANGED,
     GET_OFFERS_FOR_PROFESSOR,
+    GET_OFFERS_FOR_PROFESSOR_FAIL,
     GET_OFFERS_FOR_PROFESSOR_SUCCESS,
-    GET_OFFERS_FOR_PROFESSOR_FAIL, DESCRIPTION_CHANGED, POST_OFFER, POST_OFFER_SUCCESS, POST_OFFER_FAIL,
-    GET_ALL_STUDENTS, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAIL, ASSIGN_STUDENT_OFFER,
-    ASSIGN_STUDENT_OFFER_SUCCESS, ASSIGN_STUDENT_OFFER_FAIL, SELECT_OFFER, GET_OFFERS_FOR_STUDENT,
-    GET_OFFERS_FOR_STUDENT_SUCCESS, GET_OFFERS_FOR_STUDENT_FAIL
+    GET_OFFERS_FOR_STUDENT,
+    GET_OFFERS_FOR_STUDENT_FAIL,
+    GET_OFFERS_FOR_STUDENT_SUCCESS,
+    POST_OFFER,
+    POST_OFFER_FAIL,
+    POST_OFFER_SUCCESS,
+    SELECT_OFFER,
+    SELECT_OFFER_SPECIALTY,
+    SELECT_OFFER_STATUS,
+    SELECT_STUDENT_FILTER,
+    TOGGLE_OFFER_STATUS_VISIBILITY,
+    TOGGLE_SPECIALITY_VISIBILITY,
+    TOGGLE_STUDENTS_MODAL_VISIBILITY
 } from "../../actions/actionTypes";
 import * as Constants from "../../utils/Constants";
 import {asyncGetRequest, asyncPutRequestUnauthorized, asyncRequestJSONBody} from "../../utils/WebServiceUtils";
-import * as MockDataUtils from "../../utils/MockDataUtils";
 
-export const getOffers = (professorId) => {
+export const getOffers = (professorId, offerStatus) => {
     return (dispatch) => {
         dispatch({
             type: GET_OFFERS_FOR_PROFESSOR,
             payload: null
         });
-        getOffersAsync(dispatch, professorId);
+        getOffersAsync(dispatch, professorId, offerStatus);
     }
 };
 
-async function getOffersAsync(dispatch, professorId) {
+async function getOffersAsync(dispatch, professorId, offerStatus) {
     asyncGetRequest(dispatch,
         Constants.API_URL + '/offer/v1/merchants/' + encodeURIComponent(professorId),
-        getOffersSuccess, getOffersFail, {'offer-status' : 'ACTIVE'});
+        getOffersSuccess, getOffersFail, {'offer-status' : offerStatus});
 }
 
 const getOffersSuccess = (dispatch, offers) => {
@@ -87,35 +100,6 @@ async function postOfferSuccess(dispatch, response) {
 const postOfferFail = (dispatch, message) => {
     dispatch({
         type: POST_OFFER_FAIL,
-        payload: message
-    });
-};
-
-export const getStudents = () => {
-    return (dispatch) => {
-        dispatch({
-            type: GET_ALL_STUDENTS,
-            payload: null
-        });
-        getStudentsAsync(dispatch, );
-    }
-};
-
-async function getStudentsAsync(dispatch) {
-    asyncGetRequest(dispatch,
-        Constants.API_URL + '/student/v1', getStudentsSuccess, getStudentsFail);
-}
-
-const getStudentsSuccess = (dispatch, students) => {
-    dispatch({
-        type: GET_ALL_STUDENTS_SUCCESS,
-        payload: students
-    });
-};
-
-const getStudentsFail = (dispatch, message) => {
-    dispatch({
-        type: GET_ALL_STUDENTS_FAIL,
         payload: message
     });
 };
@@ -191,3 +175,47 @@ const getOffersForStudentFail = (dispatch, message) => {
         payload: message
     });
 };
+
+export const toggleOfferStatusVisibility = (visibility) => {
+    return {
+        type: TOGGLE_OFFER_STATUS_VISIBILITY,
+        visibility: visibility,
+    }
+};
+
+export const toggleSpecialityVisibility = (visibility) => {
+    return {
+        type: TOGGLE_SPECIALITY_VISIBILITY,
+        visibility: visibility,
+    }
+};
+
+export const selectOfferStatusFilter = (offerStatusFilter) => {
+    return {
+        type: SELECT_OFFER_STATUS,
+        offerStatusFilter: offerStatusFilter,
+    }
+};
+
+export const selectSpecialtyFilter = (specialtyFilter) => {
+    return {
+        type: SELECT_OFFER_SPECIALTY,
+        specialtyFilter: specialtyFilter,
+    }
+};
+
+export const selectStudentFilter = (studentFilter) => {
+    return {
+        type: SELECT_STUDENT_FILTER,
+        studentFilter: studentFilter,
+    }
+};
+
+export const toggleStudentsModalVisibility = (visibility) => {
+    return {
+        type: TOGGLE_STUDENTS_MODAL_VISIBILITY,
+        visibility: visibility,
+    }
+};
+
+

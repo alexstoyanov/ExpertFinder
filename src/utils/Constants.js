@@ -1,13 +1,9 @@
 export const API_URL = 'http://localhost:8025';
-export const APP_ID = 1436156397;
-export const APP_NAME = "Shkolo";
+export const APP_NAME = "ExpertFinder";
 export const ERROR = "error";
 export const SUCCESS = "success";
-export const USER_SCHOOL_ID = 'UserSchoolId';
-export const CURRENT_USER_ID = 'CurrentUserId';
-export const CURRENT_USER_ROLES = 'CurrentUserRoles';
-export const CURRENT_USER_NAMES = 'CurrentUserNames';
-export const CURRENT_START_YEAR = '18';
-export const CURRENT_YEAR_TERM2_START = '02-06';
-export const CURRENT_YEAR_TERM2_END = '08-31';
-export const SCHOOL_EXCLUDED_SCHEDULE = "195";
+export const ACTIVE = "ACTIVE";
+export const ACCEPTED = "ACCEPTED";
+export const DECLINED = "DECLINED";
+export const CANCELLED = "CANCELLED";
+

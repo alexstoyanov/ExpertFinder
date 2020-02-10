@@ -12,6 +12,7 @@ import {
 } from "../../actions/index";
 import {globalStyles} from "../../utils/Styles";
 import * as MockDataUtils from "../../utils/MockDataUtils";
+import * as Strings from "../../utils/Strings";
 
 class RssFeedScreen extends Component {
     constructor(props){
@@ -39,6 +40,14 @@ class RssFeedScreen extends Component {
         );
     }
 }
+
+RssFeedScreen.navigationOptions = ({navigation}) => ({
+    headerStyle: globalStyles.headerStyle,
+    headerTitle:
+        <View style={globalStyles.headerTitleContainerStyle}>
+            <Text style={globalStyles.headerTitleStyle}>{Strings.HOME}</Text>
+        </View>,
+});
 
 const styles = StyleSheet.create({
     containerStyle: {

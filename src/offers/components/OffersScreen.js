@@ -2,20 +2,23 @@ import React, {Component} from "react";
 import {Image, Platform, View, Text, StyleSheet, FlatList, TouchableOpacity} from "react-native";
 import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
-import ListItem from "../../rss/components/OfferItem";
+import FeatherIcon from "react-native-vector-icons/Feather";
+import ListItem from "./OfferItem";
 
 import {
     navigateOfferDetail,
     getOffers,
     navigateCreateOffer,
+    navigateFilterOffers,
     selectOffer,
 } from "../../actions/index";
 import {globalStyles} from "../../utils/Styles";
 import * as MockDataUtils from "../../utils/MockDataUtils";
+import * as Strings from "../../utils/Strings";
 
 class OffersScreen extends Component {
 
-    navigateAddOffer(){
+    navigateAddOffer() {
         navigateCreateOffer();
     }
 
@@ -24,11 +27,12 @@ class OffersScreen extends Component {
         props.navigation.setParams({
             showAddBtn: props.token.includes("Professor"),
             navigateAddOffer: this.navigateAddOffer,
+            navigateFilterOffers: navigateFilterOffers,
         });
     }
 
     componentDidMount() {
-        this.props.getOffers(1);
+        this.props.getOffers(1, this.props.offerStatusFilter);
     }
 
     onOfferItemPress(offer) {
@@ -44,7 +48,7 @@ class OffersScreen extends Component {
                 <FlatList
                     removeClippedSubviews={false}
                     keyExtractor={this.keyExtractor}
-                    data={this.props.offers}
+                    data={this.props.filteredOffers}
                     renderItem={({item}) => <ListItem
                         onOfferItemClick={this.onOfferItemPress.bind(this)}
                         offer={item}/>}
@@ -56,13 +60,24 @@ class OffersScreen extends Component {
 
 OffersScreen.navigationOptions = ({navigation}) => ({
     headerStyle: globalStyles.headerStyle,
-    headerTitleStyle: globalStyles.headerTitleStyle,
     headerTintColor: "#FFF",
     headerBackTitle: null,
+    headerLeft:
+        <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
+                          onPress={() => navigation.getParam("navigateFilterOffers")()}>
+            <FeatherIcon name="filter" size={20} color="white"/>
+        </TouchableOpacity>,
     headerTitle:
-        <Text style={{fontSize: 24, color: "#FFFFFF"}}>
-            ТЕСТ
-        </Text>
+        <Text style={globalStyles.headerTitleStyle}>
+            {Strings.OFFERS}
+        </Text>,
+    headerRight:
+        navigation.getParam('showAddBtn') ?
+            <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
+                              onPress={() => navigation.getParam("navigateAddOffer")()}>
+                <Icon style={globalStyles.headerIconStyle} name="ios-add" color='#FFFFFF' size={30}/>
+            </TouchableOpacity> :
+            <View/>,
 });
 
 const styles = StyleSheet.create({
@@ -74,6 +89,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     offers: state.offer.offers,
+    filteredOffers: state.offer.filteredOffers,
+    offerStatusFilter: state.offer.offerStatusFilter,
     token: state.auth.token
 });
 

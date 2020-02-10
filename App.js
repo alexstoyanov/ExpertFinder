@@ -9,22 +9,22 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
+    StyleSheet,
+    ScrollView,
+    View,
+    Text,
+    StatusBar,
     AppRegistry,
+    SafeAreaView
 } from 'react-native';
 import RootReducer from './src/reducers';
 
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
+    Header,
+    LearnMoreLinks,
+    Colors,
+    DebugInstructions,
+    ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import {createAppContainer} from 'react-navigation';
 import AppNavigator, {
@@ -39,10 +39,11 @@ const AppContainer = createAppContainer(AppNavigator);
 
 class App extends React.Component {
     store = createStore(RootReducer, {}, composeWithDevTools(applyMiddleware(ReduxThunk)));
+
     render() {
         return (
             <Provider store={this.store}>
-                <AppWithNavigationState />
+                <AppWithNavigationState/>
             </Provider>
         );
     }

@@ -96,6 +96,7 @@ export async function asyncRequestJSONBody(dispatch, url, jsonBody, successCallb
 }
 
 export async function asyncGetRequest(dispatch, url, successCallback, failCallback, headers = {}) {
+    console.log(url);
     getRequest(url, headers)
         .then((response) => {
             const statusCode = response.status;

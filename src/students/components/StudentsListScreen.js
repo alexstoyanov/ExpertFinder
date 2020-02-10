@@ -5,12 +5,21 @@ import Icon from "react-native-vector-icons/Ionicons";
 import {
     getStudents,
     assignStudentOffer,
+    navigateCreateStudent
 } from "../../actions/index";
 import {globalStyles} from "../../utils/Styles";
 import * as MockDataUtils from "../../utils/MockDataUtils";
 import ListItem from "./StudentItem";
+import * as Strings from "../../utils/Strings";
 
 class StudentsListScreen extends Component {
+    constructor(props){
+        super(props);
+        props.navigation.setParams({
+            navigateAddStudent: navigateCreateStudent,
+        });
+    }
+
     componentDidMount() {
         this.props.getStudents();
     }
@@ -41,13 +50,17 @@ class StudentsListScreen extends Component {
 
 StudentsListScreen.navigationOptions = ({navigation}) => ({
     headerStyle: globalStyles.headerStyle,
-    headerTitleStyle: globalStyles.headerTitleStyle,
     headerTintColor: "#FFF",
     headerBackTitle: null,
     headerTitle:
-        <Text style={{fontSize: 24, color: "#FFFFFF"}}>
-            ТЕСТ
-        </Text>
+        <Text style={globalStyles.headerTitleStyle}>
+            {Strings.STUDENTS}
+        </Text>,
+    headerRight:
+        <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
+                          onPress={() => navigation.getParam("navigateAddStudent")()}>
+            <Icon style={globalStyles.headerIconStyle} name="ios-add" color='#FFFFFF' size={30}/>
+        </TouchableOpacity>
 });
 
 const styles = StyleSheet.create({

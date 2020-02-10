@@ -39,6 +39,33 @@ export const SELECT_TIMELINE_ITEM = 'select_timeline_item';
 export const GET_OFFERS_FOR_STUDENT = 'get_offers_for_student';
 export const GET_OFFERS_FOR_STUDENT_SUCCESS = 'get_offers_for_student_success';
 export const GET_OFFERS_FOR_STUDENT_FAIL = 'get_offers_for_student_fail';
+export const TOGGLE_OFFER_STATUS_VISIBILITY = 'toggle_offer_status_visibility';
+export const SELECT_OFFER_STATUS = 'select_offer_status';
+export const TOGGLE_SPECIALITY_VISIBILITY = 'toggle_speciality_visibility';
+export const SELECT_OFFER_SPECIALTY = 'select_offer_specialty';
+export const SELECT_STUDENT_FILTER = 'select_student_filter';
+export const TOGGLE_STUDENTS_MODAL_VISIBILITY = 'toggle_students_modal_visibility';
+
+//PROFESSOR ACTIONS
+export const GET_ALL_PROFESSORS = 'get_all_professors';
+export const GET_ALL_PROFESSORS_SUCCESS = 'get_all_professors_success';
+export const GET_ALL_PROFESSORS_FAIL = 'get_all_professors_fail';
+export const PROFESSOR_FIRST_NAME_CHANGE = 'professor_first_name_change';
+export const PROFESSOR_FAMILY_NAME_CHANGE = 'professor_family_name_change';
+export const POST_PROFESSOR = 'post_professor';
+export const POST_PROFESSOR_SUCCESS = 'post_professor_success';
+export const POST_PROFESSOR_FAIL = 'post_professor_fail';
+export const PROFESSOR_DEPARTMENT_CHANGE = 'professor_department_change';
+
+//STUDENT ACTIONS
+export const POST_STUDENT = 'post_student';
+export const POST_STUDENT_SUCCESS = 'post_student_success';
+export const POST_STUDENT_FAIL = 'post_student_fail';
+export const STUDENT_DEPARTMENT_CHANGE = 'student_department_change';
+export const STUDENT_FAMILY_NAME_CHANGE = 'student_family_name_change';
+export const STUDENT_FIRST_NAME_CHANGE = 'student_first_name_change';
+export const STUDENT_FACULTY_NUM_CHANGE = 'student_faculty_num_change';
+
 
 //NAVIGATION ACTIONS
 export const NAVIGATE_APP_STACK = 'App';
@@ -49,7 +76,10 @@ export const NAVIGATE_CREATE_OFFER = 'CreateOffer';
 export const NAVIGATE_ALL_STUDENTS = 'AllStudents';
 export const NAVIGATE_TIMELINE_ITEM_DETAIL = 'TimelineItemDetail';
 export const NAVIGATE_LOGIN = 'Auth';
-export const NAVIGATE_HOME = 'Home';
+export const NAVIGATE_HOME = 'MainSwitch';
+export const NAVIGATE_CREATE_PROFESSOR = 'CreateProfessor';
+export const NAVIGATE_CREATE_STUDENT = 'CreateStudent';
+export const NAVIGATE_FILTER_OFFERS = 'FilterOffers';
 
 //ERROR ACTIONS
 export const RESET_ERROR_MESSAGE = "reset_error_message";

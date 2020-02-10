@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Image, Platform, View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity} from "react-native";
 import {connect} from "react-redux";
-import SafeAreaView from 'react-native-safe-area-view';
 import {globalStyles} from "../../utils/Styles";
 import * as Strings from "../../utils/Strings";
 import {
@@ -30,7 +29,7 @@ class OfferDetailsScreen extends Component {
 
     render() {
         return (
-            <SafeAreaView style={styles.containerStyle}>
+            <View style={styles.containerStyle}>
                 <View style={styles.itemInputStyle}>
                 <TextInput
                 placeholder={Strings.PROMPT_DESCRIPTION}
@@ -41,7 +40,7 @@ class OfferDetailsScreen extends Component {
                 placeholderTextColor="#000000A3"
                 style={styles.inputStyle}/>
                 </View>
-            </SafeAreaView>
+            </View>
         );
     }
 }

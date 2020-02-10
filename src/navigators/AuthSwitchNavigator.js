@@ -3,6 +3,7 @@ import LoginScreen from "../login/components/LoginScreen";
 import React, {Component} from "react";
 import AppStack from "./AppStack";
 import AuthLoadingScreen from "../login/components/AuthLoadingScreen";
+import {createStackNavigator} from 'react-navigation-stack';
 
 const MainSwitchNavigator = createSwitchNavigator(
     {
@@ -19,6 +20,21 @@ const MainSwitchNavigator = createSwitchNavigator(
     }
 );
 
-const LaunchSwitchNavigator = createAppContainer(MainSwitchNavigator);
+const MainStackNavigator = createStackNavigator(
+    {
+        MainSwitch: {
+            screen: MainSwitchNavigator,
+            path: "launch"
+        }
+    },
+    {
+        defaultNavigationOptions:{
+            headerMode: 'none',
+            header: null
+        }
+    }
+);
+
+const LaunchSwitchNavigator = createAppContainer(MainStackNavigator);
 
 export default LaunchSwitchNavigator

@@ -3,11 +3,15 @@ import AuthReducer from '../login/reducers/AuthReducer';
 import RssReducer from '../rss/reducers/RssReducer';
 import {LOGOUT_USER} from "../actions/actionTypes";
 import OfferReducer from "../offers/reducers/OfferReducer";
+import ProfessorReducer from "../professors/reducers/ProfessorReducer";
+import StudentReducer from "../students/reducers/StudentReducer";
 
 const AppReducer = combineReducers({
     auth: AuthReducer,
     rss: RssReducer,
     offer: OfferReducer,
+    professor: ProfessorReducer,
+    student: StudentReducer,
 });
 
 const rootReducer = (state, action) => {

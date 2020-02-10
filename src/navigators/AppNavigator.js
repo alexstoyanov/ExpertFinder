@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Platform, StatusBar, StyleSheet, Text, View, SafeAreaView} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {connect} from "react-redux";
 import * as Strings from "../utils/Strings";
@@ -10,7 +10,6 @@ import AuthSwitchNavigator from "./AuthSwitchNavigator";
 import NavigationService from "../actions/NavigationService";
 import AsyncStorage from '@react-native-community/async-storage';
 import {globalColors} from "../utils/Colors";
-import SafeAreaView from 'react-native-safe-area-view';
 
 export class AppWithNavigationState extends Component {
     componentDidUpdate(prevProps) {

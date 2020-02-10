@@ -32,18 +32,15 @@ export const globalStyles = StyleSheet.create({
     },
     titleTextStyle: {
         fontSize: 16,
-        fontFamily: Platform.OS === 'ios' ? 'Montserrat-Bold' : 'montserrat_bold',
-        color: 'black',
+        color: '#000000DE',
     },
     textStyle: {
-        color: 'black',
-        fontSize: 16,
-        fontFamily: Platform.OS === 'ios' ? 'Montserrat-Regular' : 'montserrat_regular',
+        fontSize: 14,
+        color: '#0000008A'
     },
     secondaryTextStyle: {
-        fontSize: 14,
-        fontFamily: Platform.OS === 'ios' ? 'OpenSansCondensed-Light' : 'opensanscondensed_light',
-        color: 'black',
+        fontSize: 12,
+        color: '#0000008A',
     },
     paddingStyle: {
         padding: 16,
@@ -92,7 +89,7 @@ export const globalStyles = StyleSheet.create({
     },
     headerTitleStyle: {
         color: '#FFFFFFFF',
-        fontSize: 17,
+        fontSize: 20,
         textAlign: 'center',
         alignSelf: 'center',
     },

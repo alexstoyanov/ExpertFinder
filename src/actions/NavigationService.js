@@ -1,7 +1,7 @@
 import {
     NAVIGATE_PROFESSOR_HOME, NAVIGATE_STUDENT_HOME, NAVIGATE_OFFER_DETAIL,
     OPEN_SPLASH, NAVIGATE_CREATE_OFFER, NAVIGATE_ALL_STUDENTS, NAVIGATE_TIMELINE_ITEM_DETAIL, NAVIGATE_LOGIN,
-    NAVIGATE_HOME
+    NAVIGATE_HOME, NAVIGATE_CREATE_PROFESSOR, NAVIGATE_CREATE_STUDENT, NAVIGATE_FILTER_OFFERS
 } from './actionTypes';
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -52,6 +52,18 @@ export const navigateTimelineItemDetail = (item) => {
 
 export const navigateLogin = () => {
     navigate(NAVIGATE_LOGIN, null);
+};
+
+export const navigateCreateProfessor = () => {
+    navigate(NAVIGATE_CREATE_PROFESSOR);
+};
+
+export const navigateCreateStudent = () => {
+    navigate(NAVIGATE_CREATE_STUDENT);
+};
+
+export const navigateFilterOffers = () => {
+    navigate(NAVIGATE_FILTER_OFFERS);
 };
 
 export default {

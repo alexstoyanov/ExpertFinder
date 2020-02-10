@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 import * as Strings from "../utils/Strings";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import SimIcons from "react-native-vector-icons/SimpleLineIcons";
+import FaIcon from "react-native-vector-icons/FontAwesome";
 
 export default class TabBar extends Component {
     render() {
@@ -27,6 +29,14 @@ export default class TabBar extends Component {
                         case "More" :
                             tabIcon= <MaterialIcons name="more-horiz" size={25} color={color}/>;
                             tabText = Strings.MORE;
+                            break;
+                        case "Professors" :
+                            tabIcon= <FontAwesome5 name="chalkboard-teacher" size={25} color={color}/>;
+                            tabText = Strings.PROFESSORS;
+                            break;
+                        case "Students" :
+                            tabIcon= <FaIcon name="group" size={25} color={color}/>;
+                            tabText = Strings.STUDENTS;
                             break;
                     }
                     return (

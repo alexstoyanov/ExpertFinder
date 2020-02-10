@@ -16,7 +16,6 @@ import {Button, Container, Content, Input, Item} from "native-base";
 import * as Constants from "../../utils/Constants";
 import * as Strings from "../../utils/Strings";
 import {globalColors} from "../../utils/Colors";
-import SafeAreaView from 'react-native-safe-area-view';
 import AsyncStorage from '@react-native-community/async-storage';
 
 class LoginScreen extends Component {
@@ -50,8 +49,12 @@ class LoginScreen extends Component {
                 await AsyncStorage.setItem('userToken', 'ProfessorToken');
                 this.props.setToken('ProfessorToken');
                 navigateHome();
-            }else if(email ==="student" && password === "student"){
+            } else if(email ==="student" && password === "student"){
                 await AsyncStorage.setItem('userToken', 'StudentToken');
+                this.props.setToken('StudentToken');
+                navigateHome();
+            } else if(email ==="admin" && password === "admin"){
+                await AsyncStorage.setItem('userToken', 'AdminToken');
                 this.props.setToken('StudentToken');
                 navigateHome();
             }
@@ -71,7 +74,7 @@ class LoginScreen extends Component {
 
     render() {
         return (
-            <SafeAreaView style={{flex: 1, backgroundColor: globalColors.primaryColor}} forceInset={{top: "always", bottom: 'always'}}>
+            <View style={{flex: 1, backgroundColor: globalColors.primaryColor}} forceInset={{top: "always", bottom: 'always'}}>
                 <ScrollView style={styles.containerStyle}>
                     <View style={styles.loginFormStyle}>
                         <Text style={styles.promptStyle}>{Strings.PROMPT_EMAIL}</Text>
@@ -117,7 +120,7 @@ class LoginScreen extends Component {
                         </Button>
                     </View>
                 </ScrollView>
-            </SafeAreaView>
+            </View>
         );
     }
 
