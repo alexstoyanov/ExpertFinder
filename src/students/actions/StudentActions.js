@@ -4,7 +4,7 @@ import {
     POST_STUDENT_SUCCESS, STUDENT_DEPARTMENT_CHANGE,
     STUDENT_FAMILY_NAME_CHANGE,
     STUDENT_FIRST_NAME_CHANGE,
-    STUDENT_FACULTY_NUM_CHANGE
+    STUDENT_FACULTY_NUM_CHANGE, STUDENT_MULTIPLE_JSON_CHANGE
 } from "../../actions/actionTypes";
 import * as Constants from "../../utils/Constants";
 import {asyncGetRequest, asyncRequestJSONBody} from "../../utils/WebServiceUtils";
@@ -66,6 +66,13 @@ export const studentFacultyNumChange = (text) => {
     }
 };
 
+export const studentMultipleJSONChange = (text) => {
+    return {
+        type: STUDENT_MULTIPLE_JSON_CHANGE,
+        payload: text
+    }
+};
+
 export const postStudent = (facultyNumber, firstName, familyName, departmentName) => {
     return (dispatch) => {
         dispatch({
@@ -91,7 +98,6 @@ async function postStudentAsync(dispatch,facultyNumber, firstName, familyName, d
 }
 
 async function postStudentSuccess(dispatch, response) {
-    console.log(response);
     dispatch({
         type: POST_STUDENT_SUCCESS,
         payload: response

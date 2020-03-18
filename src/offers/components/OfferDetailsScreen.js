@@ -11,19 +11,29 @@ import {
 } from "../../actions/index";
 
 class OfferDetailsScreen extends Component {
-    constructor() {
-        super();
+    renderProductItemResponsesView(productItemResponses) {
+        let itemResView = productItemResponses.map(productItem => {
+            console.log(productItem);
+            return (<Text>{productItem.productDescription}</Text>)
+        });
+        return itemResView;
     }
 
     render() {
         let offer = this.props.offers.find((x) => x && x.offerId == this.props.selectedOfferId);
+        let productItemsViews = [];
+        if (offer && offer.productItemResponses) {
+            productItemsViews = this.renderProductItemResponsesView(offer.productItemResponses);
+        }
         return (
             <View style={styles.containerStyle}>
-                <Text style={styles.offerInfoStyle}>
-                    {
-                        offer.description
-                    }
-                </Text>
+                <View style={{flexDirection: "row", alignItems: 'center'}}>
+                    <MaterialIcon name="subject" color="#000" size={14}/>
+                    <Text style={globalStyles.titleTextStyle}>
+                        {" " + offer.description}
+                    </Text>
+                </View>
+                {productItemsViews}
                 {
                     offer.studentResponse
                     && offer.studentResponse.firstName ?
@@ -36,15 +46,21 @@ class OfferDetailsScreen extends Component {
                             }
                         </Text> : <View/>
                 }
-                <Button rounded success onPress={() => {
-                    navigateAllStudents(this.props.navigation.getParam("offerId"))
-                }}
-                        style={{marginTop: 32}} block>
-                    <MaterialIcon name="person-pin" color='#FFFFFF' size={30}/>
-                    <Text style={{fontSize: 17, color: '#FFFFFF', marginLeft: 8}}>
-                        {Strings.ASSIGN_TO_STUDENT}
-                    </Text>
-                </Button>
+                {
+                    offer.studentResponse
+                    && offer.studentResponse.firstName ?
+
+                        <View/> : <Button rounded success onPress={() => {
+                            navigateAllStudents(this.props.navigation.getParam("offerId"))
+                        }}
+                                          style={{marginTop: 32}} block>
+                            <MaterialIcon name="person-pin" color='#FFFFFF' size={30}/>
+                            <Text style={{fontSize: 17, color: '#FFFFFF', marginLeft: 8}}>
+                                {Strings.ASSIGN_TO_STUDENT}
+                            </Text>
+                        </Button>
+                }
+
             </View>
         );
     }

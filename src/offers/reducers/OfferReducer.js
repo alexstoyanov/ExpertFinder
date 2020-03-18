@@ -1,23 +1,32 @@
 import {
-    GET_CHANNELS,
-    GET_CHANNELS_SUCCESS,
-    GET_CHANNELS_FAIL, GET_OFFERS_FOR_PROFESSOR, GET_OFFERS_FOR_PROFESSOR_SUCCESS, GET_OFFERS_FOR_PROFESSOR_FAIL,
-    DESCRIPTION_CHANGED, GET_ALL_STUDENTS, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAIL, ASSIGN_STUDENT_OFFER_FAIL,
-    ASSIGN_STUDENT_OFFER_SUCCESS, ASSIGN_STUDENT_OFFER, POST_OFFER_SUCCESS, SELECT_OFFER,
-    TOGGLE_OFFER_STATUS_VISIBILITY, SELECT_OFFER_STATUS, TOGGLE_SPECIALITY_VISIBILITY, SELECT_OFFER_SPECIALTY,
-    SELECT_STUDENT_FILTER, TOGGLE_STUDENTS_MODAL_VISIBILITY
+    ASSIGN_STUDENT_OFFER_SUCCESS,
+    TITLE_CHANGED,
+    GET_OFFERS_FOR_PROFESSOR,
+    GET_OFFERS_FOR_PROFESSOR_FAIL,
+    GET_OFFERS_FOR_PROFESSOR_SUCCESS,
+    GET_OFFERS_FOR_STUDENT,
+    GET_OFFERS_FOR_STUDENT_FAIL,
+    GET_OFFERS_FOR_STUDENT_SUCCESS,
+    POST_OFFER_SUCCESS,
+    SELECT_OFFER,
+    SELECT_OFFER_SPECIALTY,
+    SELECT_OFFER_STATUS,
+    SELECT_STUDENT_FILTER,
+    TOGGLE_OFFER_STATUS_VISIBILITY,
+    TOGGLE_SPECIALITY_VISIBILITY,
+    TOGGLE_STUDENTS_MODAL_VISIBILITY, ITEM_DESC_CHANGED, PRICE_CHANGED
 } from "../../actions/actionTypes";
-import * as Strings from "../../utils/Strings";
 import update from 'immutability-helper';
 import * as Constants from "../../utils/Constants";
-import {selectOfferStatusFilter} from "../actions/OfferActions";
 
 const INITIAL_STATE = {
     offers: [],
     filteredOffers: [],
     offersSpecialities: [],
     offersStudents: [],
-    description: "",
+    offerTitle: "",
+    offerPrice:5,
+    itemDescription: "",
     students: [],
     selectedOfferId: {},
     offerStatusModalVisible: false,
@@ -25,7 +34,8 @@ const INITIAL_STATE = {
     studentModalVisible: false,
     offerStatusFilter: Constants.ACTIVE,
     specialtyFilter: "",
-    studentFilter: ""
+    studentFilter: "",
+    studentOffers: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -73,21 +83,6 @@ export default (state = INITIAL_STATE, action) => {
                 offers: [],
                 filteredOffers: [],
             };
-        case GET_ALL_STUDENTS:
-            return {
-                ...state,
-                students: [],
-            };
-        case GET_ALL_STUDENTS_SUCCESS:
-            return {
-                ...state,
-                students: action.payload,
-            };
-        case GET_ALL_STUDENTS_FAIL:
-            return {
-                ...state,
-                students: [],
-            };
         case ASSIGN_STUDENT_OFFER_SUCCESS:
             let offerIndex = state.offers.findIndex(x => x.offerId == action.payload.offerId);
             return update(state, {
@@ -112,8 +107,12 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 selectedOfferId: action.payload,
             };
-        case DESCRIPTION_CHANGED:
-            return {...state, description: action.payload};
+        case PRICE_CHANGED:
+            return {...state, offerPrice: action.payload};
+        case TITLE_CHANGED:
+            return {...state, offerTitle: action.payload};
+        case ITEM_DESC_CHANGED:
+            return {...state, itemDescription: action.payload};
         case TOGGLE_OFFER_STATUS_VISIBILITY:
             return {
                 ...state,
@@ -158,6 +157,21 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 studentModalVisible: action.visibility
+            };
+        case GET_OFFERS_FOR_STUDENT:
+            return {
+                ...state,
+                studentOffers: [],
+            };
+        case GET_OFFERS_FOR_STUDENT_SUCCESS:
+            return {
+                ...state,
+                studentOffers: action.payload,
+            };
+        case GET_OFFERS_FOR_STUDENT_FAIL:
+            return {
+                ...state,
+                offers: [],
             };
         default:
             return state;

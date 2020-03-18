@@ -6,19 +6,17 @@ import SettingsStackNavigator from "../settings/navigators/SettingsStackNavigato
 import OffersStackNavigator from "../offers/navigators/OffersStackNavigator";
 import ProfessorsStackNavigator from "../professors/navigators/ProfessorsStackNavigator";
 import StudentsStackNavigator from "../students/navigators/StudentsStackNavigator";
+import TimelineStackNavigator from "../rss/navigators/TimelineStackNavigator";
 
 const AdminMainTabNavigator = createBottomTabNavigator({
+    Timeline: {
+        screen: TimelineStackNavigator
+    },
     Professors: {
         screen: ProfessorsStackNavigator,
-        navigationOptions: {
-            headerBackTitle: null
-        }
     },
     Students: {
         screen: StudentsStackNavigator,
-        navigationOptions: {
-            headerBackTitle: null
-        }
     },
     More: {
         screen: SettingsStackNavigator

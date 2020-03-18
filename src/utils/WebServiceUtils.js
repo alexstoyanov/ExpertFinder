@@ -39,7 +39,6 @@ export async function requestJsonBody(url, jsonBody, method) {
         })
 }
 
-
 export async function asyncPostRequestUnauthorized(dispatch, url, formData, successCallback, failCallback) {
     postRequest(url, formData)
         .then((response) => {

@@ -4,13 +4,14 @@ import MainTabBar from "../components/MainTabBar";
 import SettingsScreen from "../settings/components/SettingsScreen";
 import SettingsStackNavigator from "../settings/navigators/SettingsStackNavigator";
 import OffersStackNavigator from "../offers/navigators/OffersStackNavigator";
+import CommunicationStackNavigator from "../communication/navigators/CommunicationStackNavigator";
 
 const TeacherMainTabNavigator = createBottomTabNavigator({
     Offers: {
         screen: OffersStackNavigator,
-        navigationOptions: {
-            headerBackTitle: null
-        }
+    },
+    Communication: {
+        screen: CommunicationStackNavigator,
     },
     More: {
         screen: SettingsStackNavigator

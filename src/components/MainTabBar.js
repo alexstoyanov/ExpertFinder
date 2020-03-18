@@ -4,6 +4,7 @@ import * as Strings from "../utils/Strings";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import SimIcons from "react-native-vector-icons/SimpleLineIcons";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import FaIcon from "react-native-vector-icons/FontAwesome";
 
 export default class TabBar extends Component {
@@ -37,6 +38,10 @@ export default class TabBar extends Component {
                         case "Students" :
                             tabIcon= <FaIcon name="group" size={25} color={color}/>;
                             tabText = Strings.STUDENTS;
+                            break;
+                        case "Communication" :
+                            tabIcon= <Ionicons name="md-chatboxes" size={25} color={color}/>;
+                            tabText = Strings.MESSAGES;
                             break;
                     }
                     return (

@@ -5,26 +5,29 @@ import Icon from "react-native-vector-icons/Ionicons";
 import {
     getStudents,
     assignStudentOffer,
-    navigateCreateStudent,
-    navigateCreateMultipleStudents
+    navigateCreateStudent
 } from "../../actions/index";
 import {globalStyles} from "../../utils/Styles";
 import * as MockDataUtils from "../../utils/MockDataUtils";
-import ListItem from "./StudentItem";
+import ListItem from "../../students/components/StudentItem";
 import * as Strings from "../../utils/Strings";
-import AntDesignIcon from "react-native-vector-icons/AntDesign";
 
 class StudentsListScreen extends Component {
     constructor(props){
         super(props);
         props.navigation.setParams({
             navigateAddStudent: navigateCreateStudent,
-            navigateAddMultipleStudents: navigateCreateMultipleStudents,
         });
     }
 
     componentDidMount() {
         this.props.getStudents();
+    }
+
+    onStudentItemPress(student) {
+        let professorId = 1;
+        this.props.assignStudentOffer(this.props.navigation.getParam("offerId"), professorId, student.studentId);
+        this.props.navigation.goBack();
     }
 
     keyExtractor = (item, index) => index.toString();
@@ -38,7 +41,7 @@ class StudentsListScreen extends Component {
                     keyExtractor={this.keyExtractor}
                     data={this.props.students}
                     renderItem={({item}) => <ListItem
-                        onStudentItemClick={() => {}}
+                        onStudentItemClick={this.onStudentItemPress.bind(this)}
                         student={item}/>}
                 />
             </View>
@@ -55,16 +58,10 @@ StudentsListScreen.navigationOptions = ({navigation}) => ({
             {Strings.STUDENTS}
         </Text>,
     headerRight:
-        <View style={{flexDirection:'row'}}>
-            <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
-                              onPress={() => navigation.getParam("navigateAddMultipleStudents")()}>
-                <AntDesignIcon name="addusergroup" color='#FFFFFF' size={30}/>
-            </TouchableOpacity>
         <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
                           onPress={() => navigation.getParam("navigateAddStudent")()}>
-            <AntDesignIcon name="adduser" color='#FFFFFF' size={28}/>
+            <Icon style={globalStyles.headerIconStyle} name="ios-add" color='#FFFFFF' size={30}/>
         </TouchableOpacity>
-        </View>
 });
 
 const styles = StyleSheet.create({

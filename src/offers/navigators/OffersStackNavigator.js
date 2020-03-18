@@ -4,6 +4,8 @@ import {globalStyles} from "../../utils/Styles";
 import OffersScreen from "../components/OffersScreen";
 import CreateOfferScreen from "../components/CreateOfferScreen";
 import FilterOffersScreen from "../components/FilterOffersScreen";
+import OfferDetailsScreen from "../components/OfferDetailsScreen";
+import SelectStudentScreen from "../components/SelectStudentScreen";
 
 export const OffersStackNavigator = createStackNavigator ({
     OffersHome:{
@@ -14,7 +16,13 @@ export const OffersStackNavigator = createStackNavigator ({
     },
     FilterOffers:{
         screen: FilterOffersScreen,
-    }
+    },
+    OfferDetail: {
+        screen: OfferDetailsScreen,
+    },
+    AllStudents: {
+        screen: SelectStudentScreen,
+    },
 }, {
     headerMode: 'float',
 });

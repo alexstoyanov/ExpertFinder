@@ -1,7 +1,9 @@
 import {
     NAVIGATE_PROFESSOR_HOME, NAVIGATE_STUDENT_HOME, NAVIGATE_OFFER_DETAIL,
     OPEN_SPLASH, NAVIGATE_CREATE_OFFER, NAVIGATE_ALL_STUDENTS, NAVIGATE_TIMELINE_ITEM_DETAIL, NAVIGATE_LOGIN,
-    NAVIGATE_HOME, NAVIGATE_CREATE_PROFESSOR, NAVIGATE_CREATE_STUDENT, NAVIGATE_FILTER_OFFERS
+    NAVIGATE_HOME, NAVIGATE_CREATE_PROFESSOR, NAVIGATE_CREATE_STUDENT, NAVIGATE_FILTER_OFFERS,
+    NAVIGATE_STUDENT_OFFER_DETAIL, NAVIGATE_CREATE_MESSAGE_THREAD, NAVIGATE_MESSAGES, NAVIGATE_CHOOSE_PARTICIPANTS,
+    NAVIGATE_THREAD_DETAILS, NAVIGATE_CREATE_RSS_ITEM, NAVIGATE_CREATE_MULTIPLE_STUDENTS
 } from './actionTypes';
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -46,8 +48,8 @@ export const navigateAllStudents = (offerId) => {
     });
 };
 
-export const navigateTimelineItemDetail = (item) => {
-    navigate(NAVIGATE_TIMELINE_ITEM_DETAIL, item);
+export const navigateTimelineItemDetail = (itemTitle) => {
+    navigate(NAVIGATE_TIMELINE_ITEM_DETAIL, {itemTitle});
 };
 
 export const navigateLogin = () => {
@@ -62,8 +64,36 @@ export const navigateCreateStudent = () => {
     navigate(NAVIGATE_CREATE_STUDENT);
 };
 
+export const navigateCreateMultipleStudents = () => {
+    navigate(NAVIGATE_CREATE_MULTIPLE_STUDENTS);
+};
+
 export const navigateFilterOffers = () => {
     navigate(NAVIGATE_FILTER_OFFERS);
+};
+
+export const navigateStudentOfferDetail = (offer) => {
+    navigate(NAVIGATE_STUDENT_OFFER_DETAIL, offer);
+};
+
+export const navigateNewThread = () => {
+    navigate(NAVIGATE_CREATE_MESSAGE_THREAD);
+};
+
+export const navigateMessagesList = (threadId, subject) => {
+    navigate(NAVIGATE_MESSAGES, {threadId, subject});
+};
+
+export const navigateChooseParticipantsScreen = () => {
+    navigate(NAVIGATE_CHOOSE_PARTICIPANTS, null);
+};
+
+export const navigateThreadDetails = (threadId, subject) => {
+    navigate(NAVIGATE_THREAD_DETAILS, {threadId, subject});
+};
+
+export const navigateCreateRssItem = () => {
+    navigate(NAVIGATE_CREATE_RSS_ITEM, null);
 };
 
 export default {

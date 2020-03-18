@@ -1,6 +1,7 @@
 import {
     GET_ALL_PROFESSORS, GET_ALL_PROFESSORS_FAIL, GET_ALL_PROFESSORS_SUCCESS,
-    POST_PROFESSOR_SUCCESS, PROFESSOR_DEPARTMENT_CHANGE, PROFESSOR_FAMILY_NAME_CHANGE, PROFESSOR_FIRST_NAME_CHANGE
+    POST_PROFESSOR_SUCCESS, POST_STUDENT_SUCCESS, PROFESSOR_DEPARTMENT_CHANGE, PROFESSOR_FAMILY_NAME_CHANGE,
+    PROFESSOR_FIRST_NAME_CHANGE
 } from "../../actions/actionTypes";
 
 const INITIAL_STATE = {
@@ -41,6 +42,11 @@ export default (state = INITIAL_STATE, action) => {
             return{
                 ...state,
                 professorDepartment: action.payload
+            };
+        case POST_PROFESSOR_SUCCESS:
+            return {
+                ...state,
+                professors: [...state.professors, action.payload]
             };
         default:
             return state;

@@ -1,27 +1,31 @@
 import React, {Component} from "react";
-import {Image, Platform, View, Text, StyleSheet, FlatList, TouchableOpacity} from "react-native";
+import {FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {connect} from "react-redux";
 import ListItem from "./TimelineItem";
-import Icon from "react-native-vector-icons/Ionicons";
-import AsyncStorage from '@react-native-community/async-storage';
 
-import {
-    navigateTimelineItemDetail,
-    getChannels,
-    selectTimelineItem
-} from "../../actions/index";
+import {navigateTimelineItemDetail, selectTimelineItem} from "../../actions/index";
 import {globalStyles} from "../../utils/Styles";
-import * as MockDataUtils from "../../utils/MockDataUtils";
 import * as Strings from "../../utils/Strings";
+import {
+    navigateCreateRssItem,
+} from "../../actions/index";
+import Icon from "react-native-vector-icons/Ionicons";
 
 class RssFeedScreen extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        let rssChannels = props.getChannels();
+        props.navigation.setParams({
+            showAddBtn: props.token.includes("Admin"),
+            navigateAddRssItem: this.navigateAddRssItem,
+        });
+    }
+
+    navigateAddRssItem() {
+        navigateCreateRssItem();
     }
 
     onTimelineItemPress(feedItem){
-        navigateTimelineItemDetail();
+        navigateTimelineItemDetail(feedItem.title);
         this.props.selectTimelineItem(feedItem.id);
     }
 
@@ -42,11 +46,19 @@ class RssFeedScreen extends Component {
 }
 
 RssFeedScreen.navigationOptions = ({navigation}) => ({
+    headerBackTitle: null,
     headerStyle: globalStyles.headerStyle,
     headerTitle:
         <View style={globalStyles.headerTitleContainerStyle}>
             <Text style={globalStyles.headerTitleStyle}>{Strings.HOME}</Text>
         </View>,
+    headerRight:
+        navigation.getParam('showAddBtn') ?
+            <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
+                              onPress={() => navigation.getParam("navigateAddRssItem")()}>
+                <Icon style={globalStyles.headerIconStyle} name="ios-add" color='#FFFFFF' size={30}/>
+            </TouchableOpacity> :
+            <View/>,
 });
 
 const styles = StyleSheet.create({
@@ -57,7 +69,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    channels: state.rss.channels
+    channels: state.rss.channels,
+    token: state.auth.token
 });
 
-export default connect(mapStateToProps,{getChannels, selectTimelineItem})(RssFeedScreen);
+export default connect(mapStateToProps,{selectTimelineItem})(RssFeedScreen);

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {createSwitchNavigator} from "react-navigation";
 import {StyleSheet,View} from "react-native";
-import MainTabNavigator from "./MainTabNavigator";
+import MainTabNavigator from "./StudentMainTabNavigator";
 import TeacherMainTabNavigator from "./TeacherMainTabNavigator";
 import MainTabSwitcher from "../components/MainTabSwitcher";
 import AdminMainTabNavigator from "./AdminMainTabNavigator";

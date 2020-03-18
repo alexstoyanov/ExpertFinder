@@ -12,7 +12,6 @@ import {
 } from "../../actions/index";
 import Icon from "react-native-vector-icons/Ionicons";
 
-
 class CreateStudentScreen extends Component {
     constructor(props) {
         super(props);

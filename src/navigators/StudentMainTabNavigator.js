@@ -14,13 +14,14 @@ import {connect} from "react-redux";
 import TimelineStackNavigator from "../rss/navigators/TimelineStackNavigator";
 import OffersStackNavigator from "../offers/navigators/OffersStackNavigator";
 import SettingsStackNavigator from "../settings/navigators/SettingsStackNavigator";
+import StudentOffersStackNavigator from "../offers/navigators/StudentOffersStackNavigator";
 
 const MainTabNavigator = createBottomTabNavigator({
     Timeline: {
         screen: TimelineStackNavigator,
     },
     Offers: {
-        screen: OffersStackNavigator,
+        screen: StudentOffersStackNavigator,
     },
     More: {
         screen: SettingsStackNavigator,

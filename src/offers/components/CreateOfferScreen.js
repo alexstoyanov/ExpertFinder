@@ -4,56 +4,105 @@ import {connect} from "react-redux";
 import {globalStyles} from "../../utils/Styles";
 import * as Strings from "../../utils/Strings";
 import {
-    descriptionChange,
+    offerTitleChange,
+    offerPriceChange,
+    itemDescChange,
     postOffer
 } from "../../actions/index";
 import Icon from "react-native-vector-icons/Ionicons";
+import Slider from '@react-native-community/slider';
+import {TEACHER_ROLE_ID} from "../../utils/Constants";
 
-
-class OfferDetailsScreen extends Component {
-    constructor(props){
+class CreateOfferScreen extends Component {
+    constructor(props) {
         super(props);
         props.navigation.setParams({
             onSaveOffer: this.onCreateOffer.bind(this),
         });
     }
 
-    onCreateOffer(){
-        this.props.postOffer(this.props.description, "1");
+    onCreateOffer() {
+        console.log(this.props.offerPrice)
+        let offer = {
+            currency: "string",
+            description: this.props.offerTitle,
+            price: this.props.offerPrice,
+            productItemRequests: [
+                {
+                    productDescription: this.props.itemDescription,
+                    productType: TEACHER_ROLE_ID
+                }
+            ]
+        };
+        this.props.postOffer(offer, "1");
         this.props.navigation.goBack();
     }
 
+    onOfferTitleChange(text) {
+        this.props.offerTitleChange(text);
+    }
+
+    onOfferPriceChange(text) {
+        this.props.offerPriceChange(text);
+    }
+
     onDescChange(text) {
-        this.props.descriptionChange(text);
+        this.props.itemDescChange(text);
     }
 
     render() {
         return (
             <View style={styles.containerStyle}>
                 <View style={styles.itemInputStyle}>
-                <TextInput
-                placeholder={Strings.PROMPT_DESCRIPTION}
-                onChangeText={this.onDescChange.bind(this)}
-                value={this.props.description}
-                blurOnSubmit={true}
-                underlineColorAndroid='transparent'
-                placeholderTextColor="#000000A3"
-                style={styles.inputStyle}/>
+                    <TextInput
+                        placeholder={Strings.PROMPT_TITLE}
+                        onChangeText={this.onOfferTitleChange.bind(this)}
+                        value={this.props.offerTitle}
+                        blurOnSubmit={true}
+                        underlineColorAndroid='transparent'
+                        placeholderTextColor="#000000A3"
+                        style={styles.inputStyle}/>
                 </View>
+                <View style={styles.itemInputStyle}>
+                    <TextInput
+                        placeholder={Strings.PROMPT_DESCRIPTION}
+                        onChangeText={this.onDescChange.bind(this)}
+                        value={this.props.itemDescription}
+                        blurOnSubmit={false}
+                        multiline={true}
+                        underlineColorAndroid='transparent'
+                        placeholderTextColor="#000000A3"
+                        style={styles.inputStyle}/>
+                </View>
+                <View style={{flexDirection:"row"}}>
+                    <Text style={styles.promptStyle}>{Strings.PROMPT_IMPORTANCE}</Text>
+                    <Text style={styles.priceSelectedStyle}>{this.props.offerPrice}</Text>
+                </View>
+                <Slider
+                        minimumValue={0}
+                        onValueChange={value => this.onOfferPriceChange(value)}
+                        value={this.props.offerPrice}
+                        maximumValue={10}
+                        step={1}
+                        minimumTrackTintColor="#68D89B"
+                        maximumTrackTintColor="#0000000E"
+                    />
             </View>
         );
     }
 }
 
-OfferDetailsScreen.navigationOptions = ({navigation}) => ({
+CreateOfferScreen.navigationOptions = ({navigation}) => ({
     headerStyle: globalStyles.headerStyle,
     headerTitleStyle: globalStyles.headerTitleStyle,
     headerTintColor: "#FFF",
     headerBackTitle: null,
     headerTitle:
-        <Text style={{fontSize: 24, color: "#FFFFFF"}}>
-            ТЕСТ
-        </Text>,
+        <View style={globalStyles.headerTitleContainerStyle}>
+            <Text style={globalStyles.headerTitleStyle}>
+                {Strings.CREATE_OFFER_ITEM}
+            </Text>
+        </View>,
     headerRight: <TouchableOpacity onPress={() => navigation.state.params.onSaveOffer()}
                                    style={globalStyles.headerButtonContainerStyle}>
         <Icon name="ios-checkmark" color='#FFFFFF' size={40}/>
@@ -64,7 +113,7 @@ OfferDetailsScreen.navigationOptions = ({navigation}) => ({
 const styles = StyleSheet.create({
     containerStyle: {
         flex: 1,
-        margin:16,
+        margin: 16,
         flexDirection: 'column',
     },
     inputStyle: {
@@ -77,13 +126,29 @@ const styles = StyleSheet.create({
         backgroundColor: '#9B9B9B29',
         borderRadius: 12,
         borderWidth: 0,
-        minHeight:40,
+        minHeight: 40,
+        marginBottom:16,
         borderColor: 'transparent',
+    },
+    promptStyle: {
+        alignSelf: 'flex-start',
+        fontSize: 14,
+        marginTop: 10,
+        padding: 4,
+        color: '#000000A3'
+    },
+    priceSelectedStyle: {
+        fontSize: 14,
+        marginTop: 10,
+        padding: 4,
+        color: '#000000'
     },
 });
 
 const mapStateToProps = state => ({
-    description: state.offer.description,
+    offerTitle: state.offer.offerTitle,
+    itemDescription: state.offer.itemDescription,
+    offerPrice: state.offer.offerPrice
 });
 
-export default connect(mapStateToProps, {descriptionChange, postOffer})(OfferDetailsScreen);
+export default connect(mapStateToProps, {offerTitleChange, offerPriceChange, itemDescChange, postOffer})(CreateOfferScreen);

@@ -82,7 +82,6 @@ async function postProfessorAsync(dispatch, firstName, familyName, departmentNam
 }
 
 async function postProfessorSuccess(dispatch, response) {
-    console.log(response);
     dispatch({
         type: POST_PROFESSOR_SUCCESS,
         payload: response

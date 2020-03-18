@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, Platform, View, Text, StyleSheet, FlatList, TouchableOpacity} from "react-native";
+import {Image, Platform, View, Text, StyleSheet, FlatList, TouchableOpacity,Share} from "react-native";
 import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -15,6 +15,7 @@ import {
 import {globalStyles} from "../../utils/Styles";
 import * as MockDataUtils from "../../utils/MockDataUtils";
 import * as Strings from "../../utils/Strings";
+import AntDesignIcon from "react-native-vector-icons/AntDesign";
 
 class OffersScreen extends Component {
 
@@ -22,11 +23,32 @@ class OffersScreen extends Component {
         navigateCreateOffer();
     }
 
+    onShare = async () => {
+        try {
+            const result = await Share.share({
+                message: JSON.stringify(this.props.filteredOffers)
+            });
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+
     constructor(props) {
         super(props);
         props.navigation.setParams({
             showAddBtn: props.token.includes("Professor"),
             navigateAddOffer: this.navigateAddOffer,
+            navigateExportOffers: this.onShare.bind(this),
             navigateFilterOffers: navigateFilterOffers,
         });
     }
@@ -72,12 +94,22 @@ OffersScreen.navigationOptions = ({navigation}) => ({
             {Strings.OFFERS}
         </Text>,
     headerRight:
-        navigation.getParam('showAddBtn') ?
+        <View style={{alignItems:'center', flexDirection: 'row'}}>
             <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
-                              onPress={() => navigation.getParam("navigateAddOffer")()}>
-                <Icon style={globalStyles.headerIconStyle} name="ios-add" color='#FFFFFF' size={30}/>
-            </TouchableOpacity> :
-            <View/>,
+                              onPress={() => navigation.getParam("navigateExportOffers")()}>
+                <AntDesignIcon name="export" color='#FFFFFF' size={24}/>
+            </TouchableOpacity>
+            {
+                navigation.getParam('showAddBtn') ?
+                    <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
+                                      onPress={() => navigation.getParam("navigateAddOffer")()}>
+                        <Icon style={globalStyles.headerIconStyle} name="ios-add" color='#FFFFFF' size={30}/>
+                    </TouchableOpacity> :
+                    <View/>
+            }
+
+        </View>
+    ,
 });
 
 const styles = StyleSheet.create({

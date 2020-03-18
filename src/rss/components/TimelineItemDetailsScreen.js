@@ -1,24 +1,11 @@
 import React, {Component} from "react";
-import {Image, Platform, View, Text, StyleSheet, FlatList, TouchableOpacity} from "react-native";
+import {FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {connect} from "react-redux";
 import {globalStyles} from "../../utils/Styles";
-import MaterialIcon from "react-native-vector-icons/MaterialIcons";
-import {Button} from "native-base";
-import * as Strings from "../../utils/Strings";
-import {globalColors} from "../../utils/Colors";
-import {
-    navigateAllStudents,
-} from "../../actions/index";
 
 class TimelineItemDetailsScreen extends Component {
-    constructor() {
-        super();
-    }
-
     render() {
         let timelineItem = this.props.channels.find((x) => x && x.id == this.props.selectedTimelineItemId);
-        console.log(this.props.channels);
-        console.log(this.props.selectedTimelineItemId);
         return (
             <View style={styles.containerStyle}>
                 <Text style={styles.timelineItemInfoStyle}>
@@ -35,10 +22,9 @@ TimelineItemDetailsScreen.navigationOptions = ({navigation}) => ({
     headerStyle: globalStyles.headerStyle,
     headerTitleStyle: globalStyles.headerTitleStyle,
     headerTintColor: "#FFF",
-    headerBackTitle: null,
     headerTitle:
         <Text style={{fontSize: 24, color: "#FFFFFF"}}>
-            ТЕСТ
+            {navigation.getParam("itemTitle")}
         </Text>
 });
 

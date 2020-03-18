@@ -5,6 +5,7 @@ import {LOGOUT_USER} from "../actions/actionTypes";
 import OfferReducer from "../offers/reducers/OfferReducer";
 import ProfessorReducer from "../professors/reducers/ProfessorReducer";
 import StudentReducer from "../students/reducers/StudentReducer";
+import CommunicationReducer from "../communication/reducers/CommunicationReducer";
 
 const AppReducer = combineReducers({
     auth: AuthReducer,
@@ -12,6 +13,7 @@ const AppReducer = combineReducers({
     offer: OfferReducer,
     professor: ProfessorReducer,
     student: StudentReducer,
+    communication: CommunicationReducer,
 });
 
 const rootReducer = (state, action) => {

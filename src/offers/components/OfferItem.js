@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {connect} from "react-redux";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
+import SimIcon from "react-native-vector-icons/SimpleLineIcons";
 import {globalStyles} from "../../utils/Styles";
 import * as Strings from "../../utils/Strings";
 import * as Constants from "../../utils/Constants";
@@ -9,11 +10,20 @@ import * as Constants from "../../utils/Constants";
 class OfferItem extends Component {
     render() {
         let offer = this.props.offer;
-        let offerStatusText = offer.status == Constants.ACTIVE ? Strings.ACTIVE_OFFER :
-            offer.status == Constants.ACCEPTED ? Strings.ACCEPTED_OFFER :
-                offer.status == Constants.DECLINED ? Strings.DECLINED_OFFER :
-                    offer.status == Constants.CANCELLED ? Strings.CANCELED_OFFER : "";
-
+        let offerStatusText = "";
+        let offerStatusColor = "#000000";
+        let expiryColor = "#ff6363";
+        if (offer.status == Constants.ACTIVE) {
+            offerStatusText = Strings.ACTIVE_OFFER;
+        } else if (offer.status == Constants.ACCEPTED) {
+            offerStatusText = Strings.ACCEPTED_OFFER;
+            offerStatusColor = "#6EEB83";
+        } else if (offer.status == Constants.DECLINED) {
+            offerStatusText = Strings.DECLINED_OFFER;
+            offerStatusColor = "#FF5714";
+        } else if (offer.status == Constants.CANCELLED) {
+            offerStatusText = Strings.CANCELED_OFFER;
+        }
         return (
             <TouchableOpacity key={String.valueOf(offer.id)} style={styles.itemStyle}
                               onPress={() => this.props.onOfferItemClick(offer)}>
@@ -25,14 +35,26 @@ class OfferItem extends Component {
                         </Text>
                     </View>
                     <View style={styles.dataLineStyle}>
-                        <MaterialIcon name="info-outline" color="#000" size={14}/>
-                        <Text style={globalStyles.textStyle}>
+                        <MaterialIcon name="info-outline" color={offerStatusColor} size={14}/>
+                        <Text style={[globalStyles.textStyle, {color: offerStatusColor}]}>
                             {" " + offerStatusText}
                         </Text>
                     </View>
                     {
-                        offer.studentResponse && offer.studentResponse.firstName ?
-
+                        offer.studentResponse && offer.studentResponse.firstName
+                        && offer.status != Constants.ACCEPTED && offer.status != Constants.DECLINED
+                        && offer.status != Constants.CANCELLED ?
+                            <View style={styles.dataLineStyle}>
+                                <SimIcon name="clock" color={expiryColor} size={12}/>
+                                <Text style={[globalStyles.textStyle, {color: expiryColor}]}>
+                                    {" " + "Изтича на:" + offer.expireDate}
+                                </Text>
+                            </View> : <View/>
+                    }
+                    {
+                        offer.studentResponse && offer.studentResponse.firstName
+                        && offer.status != Constants.ACCEPTED && offer.status != Constants.DECLINED
+                        && offer.status != Constants.CANCELLED ?
                             <Text style={styles.studentLabelStyle}>
                                 {
                                     Strings.SEND_TO + " " + offer.studentResponse.firstName + " " + offer.studentResponse.lastName

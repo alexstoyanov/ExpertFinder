@@ -17,6 +17,7 @@ import * as Constants from "../../utils/Constants";
 import * as Strings from "../../utils/Strings";
 import {globalColors} from "../../utils/Colors";
 import AsyncStorage from '@react-native-community/async-storage';
+import { sha256 } from 'react-native-sha256';
 
 class LoginScreen extends Component {
     onEmailChange(text) {
@@ -44,6 +45,10 @@ class LoginScreen extends Component {
     }
 
     async onLoginButtonPress(email, password) {
+        //TODO Integrate WS for login with hashed pass
+        sha256("sasho").then( hash => {
+            console.log(hash);
+        });
         if (email && password && email !== "" && password !== "") {
             if(email === "teacher" && password === "teacher"){
                 await AsyncStorage.setItem('userToken', 'ProfessorToken');

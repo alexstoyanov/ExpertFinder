@@ -130,4 +130,13 @@ export const globalStyles = StyleSheet.create({
         width: 1,
         backgroundColor: '#00000024'
     },
+    crossContainerStyle: {
+        backgroundColor: 'red',
+        width: 20,
+        height: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 15,
+        marginLeft: -8,
+    },
 });

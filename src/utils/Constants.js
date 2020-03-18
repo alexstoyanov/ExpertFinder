@@ -6,4 +6,6 @@ export const ACTIVE = "ACTIVE";
 export const ACCEPTED = "ACCEPTED";
 export const DECLINED = "DECLINED";
 export const CANCELLED = "CANCELLED";
-
+export const TEACHER_ROLE_ID = 1;
+export const STUDENT_ROLE_ID = 2;
+export const ADMIN_ROLE_ID = 3;

@@ -1,9 +1,11 @@
 import React from 'react';
 import {
+    ACCEPT_STUDENT_OFFER,
+    ACCEPT_STUDENT_OFFER_FAIL, ACCEPT_STUDENT_OFFER_SUCCESS,
     ASSIGN_STUDENT_OFFER,
     ASSIGN_STUDENT_OFFER_FAIL,
-    ASSIGN_STUDENT_OFFER_SUCCESS,
-    DESCRIPTION_CHANGED,
+    ASSIGN_STUDENT_OFFER_SUCCESS, DECLINE_STUDENT_OFFER, DECLINE_STUDENT_OFFER_FAIL, DECLINE_STUDENT_OFFER_SUCCESS,
+    TITLE_CHANGED,
     GET_OFFERS_FOR_PROFESSOR,
     GET_OFFERS_FOR_PROFESSOR_FAIL,
     GET_OFFERS_FOR_PROFESSOR_SUCCESS,
@@ -19,7 +21,7 @@ import {
     SELECT_STUDENT_FILTER,
     TOGGLE_OFFER_STATUS_VISIBILITY,
     TOGGLE_SPECIALITY_VISIBILITY,
-    TOGGLE_STUDENTS_MODAL_VISIBILITY
+    TOGGLE_STUDENTS_MODAL_VISIBILITY, ITEM_DESC_CHANGED, PRICE_CHANGED
 } from "../../actions/actionTypes";
 import * as Constants from "../../utils/Constants";
 import {asyncGetRequest, asyncPutRequestUnauthorized, asyncRequestJSONBody} from "../../utils/WebServiceUtils";
@@ -54,38 +56,41 @@ const getOffersFail = (dispatch, message) => {
     });
 };
 
-export const descriptionChange = (text) => {
+export const offerTitleChange = (text) => {
     return {
-        type: DESCRIPTION_CHANGED,
+        type: TITLE_CHANGED,
         payload: text
     }
 };
 
-export const postOffer = (description, professorId) => {
+export const offerPriceChange = (text) => {
+    return {
+        type: PRICE_CHANGED,
+        payload: text
+    }
+};
+
+export const itemDescChange = (text) => {
+    return {
+        type: ITEM_DESC_CHANGED,
+        payload: text
+    };
+};
+
+export const postOffer = (offer, professorId) => {
     return (dispatch) => {
         dispatch({
             type: POST_OFFER,
             payload: null
         });
 
-        postOfferAsync(dispatch, description, professorId);
+        postOfferAsync(dispatch, offer, professorId);
     };
 };
 
-async function postOfferAsync(dispatch, desc, professorId) {
-    let requestBody = {
-        description : desc,
-        currency : "string",
-        price: 0,
-        productItemRequests: [{
-            productDescription: "string",
-            productType : "string"
-        }
-        ]
-    };
-
+async function postOfferAsync(dispatch, offer, professorId) {
     asyncRequestJSONBody(dispatch,
-        Constants.API_URL + '/offer/v1/merchants/' + encodeURIComponent(professorId), requestBody,
+        Constants.API_URL + '/offer/v1/merchants/' + encodeURIComponent(professorId), offer,
         postOfferSuccess, postOfferFail);
 }
 
@@ -159,7 +164,7 @@ export const getOffersForStudent = (studentId) => {
 async function getOffersForStudentAsync(dispatch, studentId) {
     asyncGetRequest(dispatch,
         Constants.API_URL + '/offer/v1/students/' + encodeURIComponent(studentId),
-        getOffersForStudentSuccess, getOffersForStudentFail, {'offer-status' : 'ACTIVE'});
+        getOffersForStudentSuccess, getOffersForStudentFail);
 }
 
 const getOffersForStudentSuccess = (dispatch, offers) => {
@@ -216,6 +221,70 @@ export const toggleStudentsModalVisibility = (visibility) => {
         type: TOGGLE_STUDENTS_MODAL_VISIBILITY,
         visibility: visibility,
     }
+};
+
+export const acceptStudentOffer = (studentId, offerId) => {
+    return (dispatch) => {
+        dispatch({
+            type: ACCEPT_STUDENT_OFFER,
+            payload: null
+        });
+        acceptStudentOfferAsync(dispatch, studentId, offerId);
+    }
+};
+
+async function acceptStudentOfferAsync(dispatch, studentId, offerId) {
+    asyncPutRequestUnauthorized(dispatch,
+        Constants.API_URL + '/offer/v1/students/' + encodeURIComponent(studentId)
+        + '/offers/' + encodeURIComponent(offerId) + "/accept",
+        acceptStudentOfferSuccess, acceptStudentOfferFail);
+}
+
+const acceptStudentOfferSuccess = (dispatch, response) => {
+    console.log(response);
+    dispatch({
+        type: ACCEPT_STUDENT_OFFER_SUCCESS,
+        payload: response
+    });
+};
+
+const acceptStudentOfferFail = (dispatch, message) => {
+    console.log(message);
+        dispatch({
+        type: ACCEPT_STUDENT_OFFER_FAIL,
+        payload: message
+    });
+};
+
+export const declineStudentOffer = (studentId, offerId) => {
+    return (dispatch) => {
+        dispatch({
+            type: DECLINE_STUDENT_OFFER,
+            payload: null
+        });
+        declineStudentOfferAsync(dispatch, studentId, offerId);
+    }
+};
+
+async function declineStudentOfferAsync(dispatch, studentId, offerId) {
+    asyncPutRequestUnauthorized(dispatch,
+        Constants.API_URL + '/offer/v1/students/' + encodeURIComponent(studentId)
+        + '/offers/' + encodeURIComponent(offerId) + "/decline",
+        declineStudentOfferSuccess, declineStudentOfferFail);
+}
+
+const declineStudentOfferSuccess = (dispatch, response) => {
+    dispatch({
+        type: DECLINE_STUDENT_OFFER_SUCCESS,
+        payload: response
+    });
+};
+
+const declineStudentOfferFail = (dispatch, message) => {
+    dispatch({
+        type: DECLINE_STUDENT_OFFER_FAIL,
+        payload: message
+    });
 };
 
 

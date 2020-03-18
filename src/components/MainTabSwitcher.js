@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import {View, Image} from 'react-native';
-import {navigateTeacherHome, navigateLogin, sendUserFcmToken} from "../actions/index";
+import {navigateTeacherHome, navigateLogin, setMessageThreads, setRssChannels} from "../actions/index";
 import {connect} from "react-redux";
 import AsyncStorage from '@react-native-community/async-storage';
 import * as Constants from "../utils/Constants";
 
 class MainTabSwitcher extends Component {
     async componentDidMount() {
-        await await AsyncStorage.getItem('userToken').then((userToken) => {
+        await AsyncStorage.getItem('userToken').then((userToken) => {
             if (userToken) {
-                console.log(userToken);
                 if (userToken.includes('Professor')) {
                     this.props.navigation.navigate('TeacherHome');
                 } else if(userToken.includes('Student')) {
@@ -17,6 +16,17 @@ class MainTabSwitcher extends Component {
                 } else if(userToken.includes('Admin')) {
                     this.props.navigation.navigate('AdminHome');
                 }
+            }
+        });
+        await AsyncStorage.getItem('threads').then((value) => {
+            if(value != null){
+                this.props.setMessageThreads(JSON.parse(value));
+            }
+        });
+        await AsyncStorage.getItem('rssChannels').then((value) => {
+            console.log(value);
+            if(value != null){
+                this.props.setRssChannels(JSON.parse(value));
             }
         });
     }
@@ -55,5 +65,6 @@ const mapStateToProps = ({props}) => {
 export default connect(mapStateToProps, {
     navigateTeacherHome,
     navigateLogin,
-    sendUserFcmToken,
+    setMessageThreads,
+    setRssChannels
 })(MainTabSwitcher);
