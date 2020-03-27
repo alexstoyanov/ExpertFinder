@@ -8,6 +8,7 @@ import * as Strings from "../../utils/Strings";
 import {globalColors} from "../../utils/Colors";
 import {
     navigateAllStudents,
+    navigateOfferMessagesList,
 } from "../../actions/index";
 
 class OfferDetailsScreen extends Component {
@@ -27,6 +28,7 @@ class OfferDetailsScreen extends Component {
         }
         return (
             <View style={styles.containerStyle}>
+
                 <View style={{flexDirection: "row", alignItems: 'center'}}>
                     <MaterialIcon name="subject" color="#000" size={14}/>
                     <Text style={globalStyles.titleTextStyle}>
@@ -54,13 +56,20 @@ class OfferDetailsScreen extends Component {
                             navigateAllStudents(this.props.navigation.getParam("offerId"))
                         }}
                                           style={{marginTop: 32}} block>
-                            <MaterialIcon name="person-pin" color='#FFFFFF' size={30}/>
+                            <MaterialIcon name="person-pin" color='#FFFFFF' size={24}/>
                             <Text style={{fontSize: 17, color: '#FFFFFF', marginLeft: 8}}>
                                 {Strings.ASSIGN_TO_STUDENT}
                             </Text>
                         </Button>
                 }
-
+                <Button rounded info
+                        onPress={() => navigateOfferMessagesList(offer)}
+                        style={{marginTop: 32}} block>
+                    <MaterialIcon name="comment" color='#FFFFFF' size={24}/>
+                    <Text style={{fontSize: 17, color: '#FFFFFF', marginLeft: 8}}>
+                        {Strings.COMMENTS}
+                    </Text>
+                </Button>
             </View>
         );
     }

@@ -97,10 +97,12 @@ export const NAVIGATE_CREATE_MULTIPLE_STUDENTS = 'CreateMultipleStudents';
 export const NAVIGATE_FILTER_OFFERS = 'FilterOffers';
 export const NAVIGATE_STUDENT_OFFER_DETAIL = 'StudentOfferDetails';
 export const NAVIGATE_MESSAGES = 'Messages';
+export const NAVIGATE_OFFER_MESSAGES = 'OfferMessages';
 export const NAVIGATE_CREATE_MESSAGE_THREAD = 'CreateMessageThread';
 export const NAVIGATE_CHOOSE_PARTICIPANTS = 'ChooseParticipants';
 export const NAVIGATE_THREAD_DETAILS = 'ThreadDetails';
 export const NAVIGATE_CREATE_RSS_ITEM = 'CreateRssItem';
+export const NAVIGATE_STUDENT_PROFILE = 'StudentProfile';
 
 //MESSAGE THREADS ACTIONS
 export const GET_THREADS = 'get_threads';

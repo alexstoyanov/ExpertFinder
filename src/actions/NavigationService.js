@@ -3,7 +3,8 @@ import {
     OPEN_SPLASH, NAVIGATE_CREATE_OFFER, NAVIGATE_ALL_STUDENTS, NAVIGATE_TIMELINE_ITEM_DETAIL, NAVIGATE_LOGIN,
     NAVIGATE_HOME, NAVIGATE_CREATE_PROFESSOR, NAVIGATE_CREATE_STUDENT, NAVIGATE_FILTER_OFFERS,
     NAVIGATE_STUDENT_OFFER_DETAIL, NAVIGATE_CREATE_MESSAGE_THREAD, NAVIGATE_MESSAGES, NAVIGATE_CHOOSE_PARTICIPANTS,
-    NAVIGATE_THREAD_DETAILS, NAVIGATE_CREATE_RSS_ITEM, NAVIGATE_CREATE_MULTIPLE_STUDENTS
+    NAVIGATE_THREAD_DETAILS, NAVIGATE_CREATE_RSS_ITEM, NAVIGATE_CREATE_MULTIPLE_STUDENTS, NAVIGATE_OFFER_MESSAGES,
+    NAVIGATE_STUDENT_PROFILE
 } from './actionTypes';
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -82,6 +83,14 @@ export const navigateNewThread = () => {
 
 export const navigateMessagesList = (threadId, subject) => {
     navigate(NAVIGATE_MESSAGES, {threadId, subject});
+};
+
+export const navigateOfferMessagesList = (offer) => {
+    navigate(NAVIGATE_OFFER_MESSAGES, {offer});
+};
+
+export const navigateStudentProfile = (user) => {
+    navigate(NAVIGATE_STUDENT_PROFILE, {user});
 };
 
 export const navigateChooseParticipantsScreen = () => {

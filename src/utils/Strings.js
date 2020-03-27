@@ -51,3 +51,5 @@ export const PROMPT_MESSAGE= "Въведи съобщение";
 export const CREATE_RSS_ITEM= "Създаване на новина";
 export const CREATE_OFFER_ITEM= "Създаване на оферта";
 export const PROMPT_IMPORTANCE = "Важност на офертата";
+export const PROMPT_ATTACH = "Прикачи файл";
+export const COMMENTS = "Коментари";

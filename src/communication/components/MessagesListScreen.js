@@ -2,18 +2,23 @@ import React, {Component} from "react";
 import {ActivityIndicator, Alert, Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {connect} from "react-redux";
 import {Bubble, CustomActions, GiftedChat, Send, Message, InputToolbar, Composer} from "react-native-gifted-chat";
-import {navigateThreadDetails, sendMessage, showErrorMessage, downloadFile} from "../../actions/index";
+import {navigateThreadDetails, sendMessage,navigateStudentProfile, showErrorMessage, downloadFile} from "../../actions/index";
 import {globalStyles} from "../../utils/Styles";
 import {globalColors} from "../../utils/Colors";
 import {Text} from "native-base";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import * as Strings from "../../utils/Strings";
+import * as MockDataUtils from "../../utils/MockDataUtils";
 
 class MessageListScreen extends Component {
     constructor(props) {
         super(props);
+        this.props.navigation.getParam("offer").description;
         props.navigation.setParams({
+            headerTitleString: this.props.navigation.getParam("offer") ?
+                this.props.navigation.getParam("offer").description :
+                Strings.MESSAGES,
             navigateThreadDetails: navigateThreadDetails,
         });
     }
@@ -29,10 +34,14 @@ class MessageListScreen extends Component {
     }
 
     render() {
-        let messagesList = this.props.messageThreads.find(
-            (r) => r && r.id == this.props.navigation.getParam("threadId")).messages;
-
-        console.log(messagesList);
+        let messagesList = [];
+        if(this.props.navigation.getParam("threadId")){
+            messagesList = this.props.messageThreads.find(
+                (r) => r && r.id == this.props.navigation.getParam("threadId")).messages;
+        } else if(this.props.navigation.getParam("offer") && this.props.navigation.getParam("offer").offerId){
+            messagesList = MockDataUtils.getMessages();
+        }
+        console.log(this.props.navigation.getParam("offer"));
         return (
             <View style={styles.chatContainerStyle}>
                 <GiftedChat
@@ -41,7 +50,7 @@ class MessageListScreen extends Component {
                     messages={messagesList}
                     onSend={this.onSend.bind(this)}
                     onPressAvatar={this.onAvatarClicked}
-                    user={{_id: this.props.currentUserId}}
+                    user={{_id: 1}}
                     renderSend={this.renderSend.bind(this)}
                     placeholder="Въведете съобщение"
                     renderBubble={this.renderBubble.bind(this)}
@@ -159,17 +168,7 @@ class MessageListScreen extends Component {
 
 
     onAvatarClicked(user) {
-        Alert.alert(
-            'Информация за потребителя',
-            user.name,
-            [
-                {
-                    text: 'OK', onPress: () => {
-                }
-                },
-            ],
-            {cancelable: false}
-        )
+        navigateStudentProfile(user);
     }
 
 }
@@ -182,7 +181,7 @@ MessageListScreen.navigationOptions = ({navigation}) => ({
     headerTitle:
         <Text numberOfLines={1}
               style={globalStyles.headerTitleStyle}>
-            {navigation.state.params.subject}
+            {navigation.state.params.headerTitleString}
         </Text>,
     headerRight: <TouchableOpacity
         onPress={() => navigation.state.params.navigateThreadDetails(navigation.state.params.threadId, navigation.state.params.subject)}

@@ -32,12 +32,6 @@ export const CommunicationStackNavigator = createStackNavigator ({
             headerBackTitle: null
         }
     },
-    ThreadDetails: {
-        screen: MessageThreadDetailsScreen,
-        navigationOptions: {
-            headerBackTitle: null
-        }
-    },
 }, {
     headerMode: 'float',
 });
