@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, Platform, View, Text, StyleSheet, FlatList, TouchableOpacity,Share} from "react-native";
+import {Image, Platform, View, Text, StyleSheet, FlatList, TouchableOpacity, Share} from "react-native";
 import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 import FeatherIcon from "react-native-vector-icons/Feather";
@@ -16,6 +16,7 @@ import {globalStyles} from "../../utils/Styles";
 import * as MockDataUtils from "../../utils/MockDataUtils";
 import * as Strings from "../../utils/Strings";
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
+import ActionButton from 'react-native-action-button';
 
 class OffersScreen extends Component {
 
@@ -24,6 +25,7 @@ class OffersScreen extends Component {
     }
 
     onShare = async () => {
+        console.log(JSON.stringify(this.props.filteredOffers));
         try {
             const result = await Share.share({
                 message: JSON.stringify(this.props.filteredOffers)
@@ -75,6 +77,14 @@ class OffersScreen extends Component {
                         onOfferItemClick={this.onOfferItemPress.bind(this)}
                         offer={item}/>}
                 />
+                <ActionButton buttonColor="rgba(231,76,60,1)">
+                    <ActionButton.Item buttonColor='#9b59b6' title={Strings.NEW_OFFER} onPress={() => navigateCreateOffer()}>
+                        <Icon name="md-create" color='#FFFFFF' size={24}/>
+                    </ActionButton.Item>
+                    <ActionButton.Item buttonColor='#3498db' title={Strings.EXPORT} onPress={() => this.onShare()}>
+                        <AntDesignIcon name="export" color='#FFFFFF' size={24}/>
+                    </ActionButton.Item>
+                </ActionButton>
             </View>
         );
     }
