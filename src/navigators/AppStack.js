@@ -1,7 +1,6 @@
 import {createStackNavigator} from 'react-navigation-stack';
 import React, {Component} from "react";
 import OfferDetailsScreen from "../offers/components/OfferDetailsScreen";
-import QRCodeScannerScreen from "../qr/components/QRCodeScannerScreen";
 import CreateOfferScreen from "../offers/components/CreateOfferScreen";
 import StudentsListScreen from "../students/components/StudentsListScreen";
 import TimelineItemDetailsScreen from "../rss/components/TimelineItemDetailsScreen";
@@ -12,9 +11,6 @@ import CreateProfessorScreen from "../professors/components/CreateProfessorScree
 export default createStackNavigator({
     MainTabsSwitch: {
         screen: MainTabsSwitch,
-    },
-    QRCode: {
-        screen: QRCodeScannerScreen,
     },
 },{
     defaultNavigationOptions:{
