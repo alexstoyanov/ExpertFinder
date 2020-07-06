@@ -16,6 +16,7 @@ import {globalStyles} from "../../utils/Styles";
 import * as MockDataUtils from "../../utils/MockDataUtils";
 import * as Strings from "../../utils/Strings";
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
+import SimIcons from "react-native-vector-icons/SimpleLineIcons";
 import ActionButton from 'react-native-action-button';
 
 class OffersScreen extends Component {
@@ -78,7 +79,8 @@ class OffersScreen extends Component {
                         offer={item}/>}
                 />
                 <ActionButton buttonColor="rgba(231,76,60,1)">
-                    <ActionButton.Item buttonColor='#9b59b6' title={Strings.NEW_OFFER} onPress={() => navigateCreateOffer()}>
+                    <ActionButton.Item buttonColor='#9b59b6' title={Strings.NEW_OFFER}
+                                       onPress={() => navigateCreateOffer()}>
                         <Icon name="md-create" color='#FFFFFF' size={24}/>
                     </ActionButton.Item>
                     <ActionButton.Item buttonColor='#3498db' title={Strings.EXPORT} onPress={() => this.onShare()}>
@@ -100,25 +102,14 @@ OffersScreen.navigationOptions = ({navigation}) => ({
             <FeatherIcon name="filter" size={20} color="white"/>
         </TouchableOpacity>,
     headerTitle:
-        <Text style={globalStyles.headerTitleStyle}>
-            {Strings.OFFERS}
-        </Text>,
+        <View style={globalStyles.headerTitleContainerStyle}>
+            <SimIcons style={globalStyles.headerIconStyle} name="clock" size={20} color="white"/>
+            <Text style={globalStyles.headerTitleStyle}>
+                {Strings.OFFERS}
+            </Text>
+        </View>,
     headerRight:
-        <View style={{alignItems:'center', flexDirection: 'row'}}>
-            <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
-                              onPress={() => navigation.getParam("navigateExportOffers")()}>
-                <AntDesignIcon name="export" color='#FFFFFF' size={24}/>
-            </TouchableOpacity>
-            {
-                navigation.getParam('showAddBtn') ?
-                    <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
-                                      onPress={() => navigation.getParam("navigateAddOffer")()}>
-                        <Icon style={globalStyles.headerIconStyle} name="ios-add" color='#FFFFFF' size={30}/>
-                    </TouchableOpacity> :
-                    <View/>
-            }
-
-        </View>
+        <View style={globalStyles.emptyHeaderButtonContainerStyle}/>
     ,
 });
 

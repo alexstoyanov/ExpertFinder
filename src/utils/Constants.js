@@ -1,4 +1,5 @@
-export const API_URL = 'http://localhost:8025';
+// export const API_URL = 'http://localhost:8025';
+export const API_URL = 'http://62.44.108.14:8025';
 export const FMI_API_URL = 'http://fn24884.w3c.fmi.uni-sofia.bg/data/v1/';
 export const APP_NAME = "ExpertFinder";
 export const ERROR = "error";

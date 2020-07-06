@@ -55,3 +55,5 @@ export const PROMPT_ATTACH = "Прикачи файл";
 export const COMMENTS = "Коментари";
 export const EXPORT = "Експортиране";
 export const NEW_OFFER = "Нова оферт";
+export const NEW_STUDENT = "Създаване на студент";
+export const NEW_STUDENTS = "Създаване на студенти";

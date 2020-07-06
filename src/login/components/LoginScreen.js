@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Image, Platform, ScrollView, StyleSheet, View, Text, ActivityIndicator, TouchableOpacity} from "react-native";
+import {Image, Platform, ScrollView, StyleSheet, ImageBackground, View, Text, ActivityIndicator, TouchableOpacity} from "react-native";
 import {connect} from "react-redux";
 import {
     emailChange,
@@ -79,13 +79,16 @@ class LoginScreen extends Component {
 
     render() {
         return (
-            <View style={{flex: 1, backgroundColor: globalColors.primaryColor}} forceInset={{top: "always", bottom: 'always'}}>
+
+            <ImageBackground
+                source={require('./images/loginBackground.jpg')} imageStyle={{opacity:0.2}}
+                style={{flex: 1}} forceInset={{top: "always", bottom: 'always'}}>
                 <ScrollView style={styles.containerStyle}>
                     <View style={styles.loginFormStyle}>
                         <Text style={styles.promptStyle}>{Strings.PROMPT_EMAIL}</Text>
                         <Item rounded
                               style={[styles.itemInputStyle, this.props.isEmailFieldActive ?
-                                  {borderColor: 'white'} : {borderColor: 'transparent'}]}>
+                                  {borderColor: '#00000070'} : {borderColor: 'transparent'}]}>
                             <Input onChangeText={this.onEmailChange.bind(this)}
                                    placeholder={Strings.PROMPT_EMAIL}
                                    onFocus={this.onEmailFieldFocus.bind(this)}
@@ -93,13 +96,13 @@ class LoginScreen extends Component {
                                    autoCapitalize='none'
                                    blurOnSubmit={true}
                                    autoCorrect={false}
-                                   placeholderTextColor="#FFFFFF70"
+                                   placeholderTextColor="#00000070"
                                    style={styles.inputStyle}/>
                         </Item>
                         <Text style={styles.promptStyle}>{Strings.PROMPT_PASSWORD}</Text>
                         <Item rounded
                               style={[styles.itemInputStyle, this.props.isPasswordFieldActive ?
-                                  {borderColor: 'white'} : {borderColor: 'transparent'}]}>
+                                  {borderColor: '#00000070'} : {borderColor: 'transparent'}]}>
                             <Input onChangeText={this.onPasswordChange.bind(this)}
                                    value={this.props.password}
                                    secureTextEntry={!this.props.isPasswordFieldVisible}
@@ -109,7 +112,7 @@ class LoginScreen extends Component {
                                    onBlur={this.onPasswordFieldBlur.bind(this)}
                                    placeholder={Strings.PROMPT_ENTER_PASSWORD}
                                    blurOnSubmit={true}
-                                   placeholderTextColor="#FFFFFF70"
+                                   placeholderTextColor="#00000070"
                                    style={styles.inputStyle}/>
                             <TouchableOpacity
                                 style={{paddingLeft: 16, paddingRight: 8}}
@@ -118,14 +121,14 @@ class LoginScreen extends Component {
 
                         </Item>
                         <Button rounded onPress={() => this.onLoginButtonPress(this.props.email, this.props.password)}
-                                style={{marginTop: 32, height: 36}} light block>
-                            <Text style={{fontSize: 15, color: globalColors.primaryColor}}>
+                                style={{marginTop: 32, height: 36}} success block>
+                            <Text style={{fontSize: 15, color: 'white'}}>
                                 {Strings.LOGIN}
                             </Text>
                         </Button>
                     </View>
                 </ScrollView>
-            </View>
+            </ImageBackground>
         );
     }
 
@@ -140,7 +143,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         paddingTop: 90,
-        backgroundColor: globalColors.primaryColor,
     },
     logoStyle: {
         width: 202,
@@ -155,7 +157,7 @@ const styles = StyleSheet.create({
     },
     itemInputStyle: {
         borderRadius: 12,
-        backgroundColor: '#FFFFFF30',
+        backgroundColor: '#BBBBBB30',
         height: 40
     },
     forgotPasswordStyle: {
@@ -192,14 +194,14 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 10,
         padding: 4,
-        color: '#FFFFFFA3'
+        color: '#000000A3'
     },
     socialLogoStyle: {
         height: 20,
         resizeMode: 'contain',
     },
     inputStyle: {
-        color: 'white',
+        color: '#000000A3',
         fontSize: 15
     }
 });

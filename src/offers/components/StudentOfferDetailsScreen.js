@@ -9,6 +9,7 @@ import * as Strings from "../../utils/Strings";
 import {globalColors} from "../../utils/Colors";
 import {
     acceptStudentOffer,
+    navigateOfferMessagesList,
     declineStudentOffer
 } from "../../actions/index";
 import * as Constants from "../../utils/Constants";
@@ -40,6 +41,14 @@ class StudentOfferDetailsScreen extends Component {
                         }
                     </Text>
                 </View>
+                <Button rounded info
+                        onPress={() => navigateOfferMessagesList(offer)}
+                        style={{marginTop: 32}} block>
+                    <MaterialIcon name="comment" color='#FFFFFF' size={24}/>
+                    <Text style={{fontSize: 17, color: '#FFFFFF', marginLeft: 8}}>
+                        {Strings.COMMENTS}
+                    </Text>
+                </Button>
                 <View style={{flexDirection: "row", alignItems: 'center'}}>
                     {
                         offer.status == Constants.ACCEPTED || offer.status == Constants.DECLINED ?

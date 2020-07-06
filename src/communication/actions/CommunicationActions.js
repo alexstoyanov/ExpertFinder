@@ -65,15 +65,15 @@ const getThreadsFail = (dispatch, message) => {
     dispatchEvent(dispatch, GET_THREADS_FAIL, message);
 };
 
-export const getMessages = (threadId) => {
+export const getMessages = (offerId) => {
     return (dispatch) => {
-        dispatchEvent(dispatch, GET_MESSAGES, threadId);
-        getMessagesAsync(dispatch, threadId);
+        dispatchEvent(dispatch, GET_MESSAGES, offerId);
+        getMessagesAsync(dispatch, offerId);
     }
 };
 
-async function getMessagesAsync(dispatch, threadId) {
-    asyncGetRequest(dispatch, Constants.SHKOLO_API_URL + '/v1/messenger/threads/' + encodeURIComponent(threadId) + '/messages',
+async function getMessagesAsync(dispatch, offerId) {
+    asyncGetRequest(dispatch, Constants.SHKOLO_API_URL + '/offer/v1/offers/' + encodeURIComponent(offerId) + '/comment',
         getMessagesSuccess, getMessagesFail);
 }
 

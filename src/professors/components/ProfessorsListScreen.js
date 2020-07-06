@@ -1,14 +1,15 @@
 import React, {Component} from "react";
 import {FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {connect} from "react-redux";
-import {getProfessors,navigateCreateProfessor} from "../../actions/index";
+import {getProfessors, navigateCreateProfessor} from "../../actions/index";
 import {globalStyles} from "../../utils/Styles";
 import ListItem from "./ProfessorItem";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as Strings from "../../utils/Strings";
+import FaIcons5 from "react-native-vector-icons/FontAwesome5";
 
 class ProfessorsListScreen extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         props.navigation.setParams({
             navigateAddProfessor: navigateCreateProfessor,
@@ -46,15 +47,19 @@ ProfessorsListScreen.navigationOptions = ({navigation}) => ({
     headerStyle: globalStyles.headerStyle,
     headerTintColor: "#FFF",
     headerBackTitle: null,
+    headerLeft: <View style={globalStyles.emptyHeaderButtonContainerStyle}/>,
     headerTitle:
-        <Text style={globalStyles.headerTitleStyle}>
-            {Strings.PROFESSORS}
-        </Text>,
+        <View style={globalStyles.headerTitleContainerStyle}>
+            <FaIcons5 style={globalStyles.headerIconStyle} name="chalkboard-teacher" size={20} color="white"/>
+            <Text style={globalStyles.headerTitleStyle}>
+                {Strings.PROFESSORS}
+            </Text>
+        </View>,
     headerRight:
-            <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
-                              onPress={() => navigation.getParam("navigateAddProfessor")()}>
-                <Icon style={globalStyles.headerIconStyle} name="ios-add" color='#FFFFFF' size={30}/>
-            </TouchableOpacity>
+        <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
+                          onPress={() => navigation.getParam("navigateAddProfessor")()}>
+            <Icon style={globalStyles.headerIconStyle} name="ios-add" color='#FFFFFF' size={30}/>
+        </TouchableOpacity>
 });
 
 const styles = StyleSheet.create({

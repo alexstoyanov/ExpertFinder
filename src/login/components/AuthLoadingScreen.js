@@ -4,12 +4,14 @@ import {
     StatusBar,
     StyleSheet,
     View,
+    ImageBackground
 } from 'react-native';
 import {connect} from "react-redux";
 import AsyncStorage from '@react-native-community/async-storage';
 import {
     setToken,
 } from "../../actions/index";
+import {globalStyles} from "../../utils/Styles";
 
 class AuthLoadingScreen extends React.Component {
     componentDidMount() {
@@ -32,10 +34,13 @@ class AuthLoadingScreen extends React.Component {
     // Render any loading content that you like here
     render() {
         return (
-            <View>
+            <ImageBackground
+                source={require('./images/loginBackground.jpg')} imageStyle={{opacity:0.5}}
+                style={globalStyles.spinnerContainerStyle} forceInset={{top: "always", bottom: 'always'}}>
+
                 <ActivityIndicator />
                 <StatusBar barStyle="default" />
-            </View>
+            </ImageBackground>
         );
     }
 }

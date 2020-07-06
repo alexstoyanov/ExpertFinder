@@ -62,7 +62,6 @@ export const globalStyles = StyleSheet.create({
     },
     spinnerContainerStyle: {
         flex: 1,
-        margin: 16,
         alignItems: 'center',
         justifyContent: 'center',
     },

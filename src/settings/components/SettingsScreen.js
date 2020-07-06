@@ -26,27 +26,27 @@ class SettingsScreen extends React.Component {
         return (
             <Container>
                 <Content style={{backgroundColor: '#FFFFFF'}}>
-            <View style={styles.listContainerStyle}>
-                <TouchableOpacity>
-                    <View style={styles.listItemStyle}>
+                    <View style={styles.listContainerStyle}>
+                        <TouchableOpacity>
+                            <View style={styles.listItemStyle}>
 
-                        <Text style={globalStyles.titleTextStyle}>
-                            <MaterialIcons name="translate" color='#000000' size={16}/> {Strings.LANGUAGE}
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <View style={styles.bigSeparatorStyle}/>
-                <TouchableOpacity onPress={() => {
-                    this.logoutUserAndClearData()
-                }}>
-                    <View style={styles.listItemStyle}>
-                        <Text style={globalStyles.titleTextStyle}>
-                            <SimIcon name="settings" color='#000000' size={16}/> {Strings.LOG_OUT}
-                        </Text>
-                    </View>
-                </TouchableOpacity>
+                                <Text style={globalStyles.titleTextStyle}>
+                                    <MaterialIcons name="translate" color='#000000' size={16}/> {Strings.LANGUAGE}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        <View style={styles.bigSeparatorStyle}/>
+                        <TouchableOpacity onPress={() => {
+                            this.logoutUserAndClearData()
+                        }}>
+                            <View style={styles.listItemStyle}>
+                                <Text style={globalStyles.titleTextStyle}>
+                                    <SimIcon name="settings" color='#000000' size={16}/> {Strings.LOG_OUT}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
 
-            </View>
+                    </View>
                 </Content>
             </Container>
         );
@@ -54,15 +54,17 @@ class SettingsScreen extends React.Component {
 }
 
 
-
 SettingsScreen.navigationOptions = ({navigation}) => ({
     headerStyle: globalStyles.headerStyle,
     headerTintColor: "#FFF",
     headerBackTitle: null,
     headerTitle:
-        <Text style={globalStyles.headerTitleStyle}>
-            {Strings.MORE}
-        </Text>,
+        <View style={globalStyles.headerTitleContainerStyle}>
+            <MaterialIcons style={globalStyles.headerIconStyle} name="more-horiz" size={20} color="white"/>
+            <Text style={globalStyles.headerTitleStyle}>
+                {Strings.MORE}
+            </Text>
+        </View>,
 });
 
 const styles = StyleSheet.create({

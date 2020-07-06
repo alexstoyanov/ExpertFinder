@@ -10,6 +10,7 @@ import {
     navigateCreateRssItem,
 } from "../../actions/index";
 import Icon from "react-native-vector-icons/Ionicons";
+import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 
 class RssFeedScreen extends Component {
     constructor(props) {
@@ -48,8 +49,10 @@ class RssFeedScreen extends Component {
 RssFeedScreen.navigationOptions = ({navigation}) => ({
     headerBackTitle: null,
     headerStyle: globalStyles.headerStyle,
+    headerLeft: <View style={globalStyles.emptyHeaderButtonContainerStyle}/>,
     headerTitle:
         <View style={globalStyles.headerTitleContainerStyle}>
+            <MaterialIcon style={globalStyles.headerIconStyle} name="timeline" color="white" size={20}/>
             <Text style={globalStyles.headerTitleStyle}>{Strings.HOME}</Text>
         </View>,
     headerRight:

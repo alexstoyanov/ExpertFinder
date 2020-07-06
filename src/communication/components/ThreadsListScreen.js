@@ -112,7 +112,7 @@ ThreadsListScreen.navigationOptions = ({navigation}) => {
         headerStyle: globalStyles.headerStyle,
         headerTitle:
             <View style={globalStyles.headerTitleContainerStyle}>
-                <SimIcons style={globalStyles.headerIconStyle} name="bubbles" color="white" size={25}/>
+                <SimIcons style={globalStyles.headerIconStyle} name="bubbles" color="white" size={20}/>
                 <Text style={globalStyles.headerTitleStyle}>{Strings.MESSAGES}</Text>
             </View>,
         headerRight:

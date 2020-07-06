@@ -13,9 +13,11 @@ import * as MockDataUtils from "../../utils/MockDataUtils";
 import ListItem from "./StudentItem";
 import * as Strings from "../../utils/Strings";
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
+import FaIcons from "react-native-vector-icons/FontAwesome";
+import ActionButton from 'react-native-action-button';
 
 class StudentsListScreen extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         props.navigation.setParams({
             navigateAddStudent: navigateCreateStudent,
@@ -38,9 +40,20 @@ class StudentsListScreen extends Component {
                     keyExtractor={this.keyExtractor}
                     data={this.props.students}
                     renderItem={({item}) => <ListItem
-                        onStudentItemClick={() => {}}
+                        onStudentItemClick={() => {
+                        }}
                         student={item}/>}
                 />
+
+                <ActionButton buttonColor="rgba(231,76,60,1)">
+                    <ActionButton.Item buttonColor='#3498db' title={Strings.NEW_STUDENT} onPress={() => navigateCreateStudent()}>
+                        <AntDesignIcon name="adduser" color='#FFFFFF' size={28}/>
+                    </ActionButton.Item>
+                    <ActionButton.Item buttonColor='#9b59b6' title={Strings.NEW_STUDENTS}
+                                       onPress={() => navigateCreateMultipleStudents()}>
+                        <AntDesignIcon name="addusergroup" color='#FFFFFF' size={30}/>
+                    </ActionButton.Item>
+                </ActionButton>
             </View>
         );
     }
@@ -50,21 +63,15 @@ StudentsListScreen.navigationOptions = ({navigation}) => ({
     headerStyle: globalStyles.headerStyle,
     headerTintColor: "#FFF",
     headerBackTitle: null,
+    headerLeft: <View style={globalStyles.emptyHeaderButtonContainerStyle}/>,
     headerTitle:
-        <Text style={globalStyles.headerTitleStyle}>
-            {Strings.STUDENTS}
-        </Text>,
-    headerRight:
-        <View style={{flexDirection:'row'}}>
-            <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
-                              onPress={() => navigation.getParam("navigateAddMultipleStudents")()}>
-                <AntDesignIcon name="addusergroup" color='#FFFFFF' size={30}/>
-            </TouchableOpacity>
-        <TouchableOpacity style={{paddingLeft: 16, paddingRight: 16}}
-                          onPress={() => navigation.getParam("navigateAddStudent")()}>
-            <AntDesignIcon name="adduser" color='#FFFFFF' size={28}/>
-        </TouchableOpacity>
-        </View>
+        <View style={globalStyles.headerTitleContainerStyle}>
+            <FaIcons style={globalStyles.headerIconStyle} name="group" size={20} color="white"/>
+            <Text style={globalStyles.headerTitleStyle}>
+                {Strings.STUDENTS}
+            </Text>
+        </View>,
+    headerRight:<View style={globalStyles.emptyHeaderButtonContainerStyle}/>,
 });
 
 const styles = StyleSheet.create({

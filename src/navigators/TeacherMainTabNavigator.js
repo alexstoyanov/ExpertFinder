@@ -5,13 +5,14 @@ import SettingsScreen from "../settings/components/SettingsScreen";
 import SettingsStackNavigator from "../settings/navigators/SettingsStackNavigator";
 import OffersStackNavigator from "../offers/navigators/OffersStackNavigator";
 import CommunicationStackNavigator from "../communication/navigators/CommunicationStackNavigator";
+import TimelineStackNavigator from "../rss/navigators/TimelineStackNavigator";
 
 const TeacherMainTabNavigator = createBottomTabNavigator({
+    Timeline: {
+        screen: TimelineStackNavigator,
+    },
     Offers: {
         screen: OffersStackNavigator,
-    },
-    Communication: {
-        screen: CommunicationStackNavigator,
     },
     More: {
         screen: SettingsStackNavigator

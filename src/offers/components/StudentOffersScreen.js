@@ -6,6 +6,7 @@ import ListItem from "./OfferItem";
 import {getOffersForStudent, navigateStudentOfferDetail, selectOffer,} from "../../actions/index";
 import {globalStyles} from "../../utils/Styles";
 import * as Strings from "../../utils/Strings";
+import SimIcons from "react-native-vector-icons/SimpleLineIcons";
 
 class StudentOffersScreen extends Component {
 
@@ -42,9 +43,12 @@ StudentOffersScreen.navigationOptions = ({navigation}) => ({
     headerTintColor: "#FFF",
     headerBackTitle: null,
     headerTitle:
-        <Text style={globalStyles.headerTitleStyle}>
-            {Strings.OFFERS}
-        </Text>,
+        <View style={globalStyles.headerTitleContainerStyle}>
+            <SimIcons style={globalStyles.headerIconStyle} name="clock" size={20} color="white"/>
+            <Text style={globalStyles.headerTitleStyle}>
+                {Strings.OFFERS}
+            </Text>
+        </View>,
 });
 
 const styles = StyleSheet.create({
